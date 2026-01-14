@@ -1,0 +1,452 @@
+<!doctype html>
+
+<html
+  lang="en"
+  class="layout-menu-fixed layout-compact"
+  data-assets-path="../assets/"
+  data-template="vertical-menu-template-free">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+
+    <title>Dashboard</title>
+    <meta name="description" content="" />
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="../assets/img/favicon/favicon.ico" />
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
+      rel="stylesheet" />
+
+    <link rel="stylesheet" href="../assets/vendor/fonts/iconify-icons.css" />
+    <link rel="stylesheet" href="../assets/vendor/css/core.css" />
+    <link rel="stylesheet" href="../assets/css/demo.css" />
+    <link rel="stylesheet" href="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
+    <link rel="stylesheet" href="../assets/vendor/libs/apex-charts/apex-charts.css" />
+    <script src="../assets/vendor/js/helpers.js"></script>
+      <script src="../assets/js/config.js"></script>
+    <script>
+      const token = localStorage.getItem('token');
+
+      if (!token) {
+        window.location.href = 'auth-login-basic.html';
+      }
+    </script>
+  </head>
+
+  <body>
+    <!-- Layout wrapper -->
+    <div class="layout-wrapper layout-content-navbar">
+      <div class="layout-container">
+        <!-- Menu -->
+        <div id="menu-area"></div>
+        <!-- / Menu -->
+
+        <!-- Layout container -->
+        <div class="layout-page">
+          <!-- Navbar -->
+
+          <nav
+            class="layout-navbar container-xxl navbar-detached navbar navbar-expand-xl align-items-center bg-navbar-theme"
+            id="layout-navbar">
+            <div class="layout-menu-toggle navbar-nav align-items-xl-center me-4 me-xl-0 d-xl-none">
+              <a class="nav-item nav-link px-0 me-xl-6" href="javascript:void(0)">
+                <i class="icon-base bx bx-menu icon-md"></i>
+              </a>
+            </div>
+
+            <div class="navbar-nav-right d-flex align-items-center justify-content-end" id="navbar-collapse">
+              <!-- Search -->
+              <div class="navbar-nav align-items-center me-auto">
+                <div class="nav-item d-flex align-items-center">
+                  <span class="w-px-22 h-px-22"><i class="icon-base bx bx-search icon-md"></i></span>
+                  <input
+                    type="text"
+                    class="form-control border-0 shadow-none ps-1 ps-sm-2 d-md-block d-none"
+                    placeholder="Search..."
+                    aria-label="Search..." />
+                </div>
+              </div>
+              <!-- /Search -->
+
+              <ul class="navbar-nav flex-row align-items-center ms-md-auto">
+                <!-- Place this tag where you want the button to render. -->
+                <li class="nav-item lh-1 me-4">
+                  <a
+                    class="github-button"
+                    href="https://github.com/themeselection/sneat-bootstrap-html-admin-template-free"
+                    data-icon="octicon-star"
+                    data-size="large"
+                    data-show-count="true"
+                    aria-label="Star themeselection/sneat-html-admin-template-free on GitHub"
+                    >Star</a
+                  >
+                </li>
+
+                <!-- User -->
+                <li class="nav-item navbar-dropdown dropdown-user dropdown">
+                  <a
+                    class="nav-link dropdown-toggle hide-arrow p-0"
+                    href="javascript:void(0);"
+                    data-bs-toggle="dropdown">
+                    <div class="avatar avatar-online">
+                      <img src="../assets/img/avatars/1.png" alt class="w-px-40 h-auto rounded-circle" />
+                    </div>
+                  </a>
+                  <ul class="dropdown-menu dropdown-menu-end">
+                    <li>
+                      <a class="dropdown-item" href="#">
+                        <div class="d-flex">
+                          <div class="flex-shrink-0 me-3">
+                            <div class="avatar avatar-online">
+                              <img src="../assets/img/avatars/1.png" alt class="w-px-40 h-auto rounded-circle" />
+                            </div>
+                          </div>
+                          <div class="flex-grow-1">
+                            <h6 class="mb-0">John Doe</h6>
+                            <small class="text-body-secondary">Admin</small>
+                          </div>
+                        </div>
+                      </a>
+                    </li>
+                    <li>
+                      <div class="dropdown-divider my-1"></div>
+                    </li>
+                    <li>
+                      <a class="dropdown-item" href="#">
+                        <i class="icon-base bx bx-user icon-md me-3"></i><span>My Profile</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a class="dropdown-item" href="#">
+                        <i class="icon-base bx bx-cog icon-md me-3"></i><span>Settings</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a class="dropdown-item" href="#">
+                        <span class="d-flex align-items-center align-middle">
+                          <i class="flex-shrink-0 icon-base bx bx-credit-card icon-md me-3"></i
+                          ><span class="flex-grow-1 align-middle">Billing Plan</span>
+                          <span class="flex-shrink-0 badge rounded-pill bg-danger">4</span>
+                        </span>
+                      </a>
+                    </li>
+                    <li>
+                      <div class="dropdown-divider my-1"></div>
+                    </li>
+                    <li>
+                      <a class="dropdown-item" href="javascript:void(0);" id="logoutBtn">
+                        <i class="icon-base bx bx-power-off icon-md me-3"></i><span>Log Out</span>
+                      </a>
+                    </li>
+                  </ul>
+                </li>
+                <!--/ User -->
+              </ul>
+            </div>
+          </nav>
+
+          <!-- / Navbar -->
+
+          <!-- Content wrapper -->
+          <div class="content-wrapper">
+            <!-- Content -->
+            <div id="content-area"></div>
+           
+            <!-- / Content -->
+
+            <!-- Footer -->
+            <footer class="content-footer footer bg-footer-theme">
+              <div class="container-xxl">
+                <div
+                  class="footer-container d-flex align-items-center justify-content-between py-4 flex-md-row flex-column">
+                  <div class="mb-2 mb-md-0">
+                    &#169;
+                    <script>
+                      document.write(new Date().getFullYear());
+                    </script>
+                    , Kentra ❤️
+                    </div>
+                 
+                </div>
+              </div>
+            </footer>
+            <!-- / Footer -->
+
+            <div class="content-backdrop fade"></div>
+          </div>
+          <!-- Content wrapper -->
+        </div>
+        <!-- / Layout page -->
+      </div>
+
+      <!-- Overlay -->
+      <div class="layout-overlay layout-menu-toggle"></div>
+    </div>
+    <!-- / Layout wrapper -->
+
+    <!-- Core JS -->
+    <script src="../assets/vendor/libs/jquery/jquery.js"></script>
+    <script src="../assets/vendor/libs/popper/popper.js"></script>
+    <script src="../assets/vendor/js/bootstrap.js"></script>
+    <script src="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+    
+    <!-- endbuild -->
+
+    <!-- Vendors JS -->
+    <script src="../assets/vendor/libs/apex-charts/apexcharts.js"></script>
+    <!-- Main JS 
+     <script src="../assets/vendor/js/menu.js"></script> 
+    <script src="../assets/js/main.js"></script>-->
+    <script src="../assets/js/router.js"></script>
+    <!-- Page JS -->
+    <script src="../assets/js/dashboards-analytics.js"></script>
+    
+    <!-- Place this tag before closing body tag for github widget button. -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+ 
+   
+    <!-- 🔥 APP -->
+    <script src="../assets/js/app/auth.js"></script>
+    <script src="../assets/js/app/guards.js"></script>
+    <script src="../assets/js/app/router.js"></script>
+    <script src="../assets/js/app/menu.js"></script>
+    <script src="../assets/js/app/app.js"></script>
+
+    <!-- Page Modules -->
+    <script src="../assets/js/app/pages/dashboard.js"></script>
+    <script src="../assets/js/app/pages/facilities.js"></script> 
+    <script>
+      (function () {
+        "use strict";
+
+        // ----------------------------
+        // CONFIG
+        // ----------------------------
+        const LOGIN_PAGE = "auth-login-basic.html";
+        const DEFAULT_ROUTE = "dashboard";
+        const PARTIALS_BASE = "partials"; // index.html ile aynı klasördeyse böyle
+
+        // ----------------------------
+        // APP STATE
+        // ----------------------------
+        const APP = {
+          user: null,
+          pendingOnLoad: null,
+          sneatInitialized: false
+        };
+
+        // ----------------------------
+        // HELPERS
+        // ----------------------------
+        function getUser() {
+          try {
+            return JSON.parse(localStorage.getItem("user"));
+          } catch {
+            return null;
+          }
+        }
+
+        function redirectLogin() {
+          window.location.href = LOGIN_PAGE;
+        }
+
+        function $(sel, root = document) {
+          return root.querySelector(sel);
+        }
+
+        function $all(sel, root = document) {
+          return Array.from(root.querySelectorAll(sel));
+        }
+
+        // ----------------------------
+        // GUARDS (role/permission/plan)
+        // ----------------------------
+        function runPageGuards(root = document) {
+          const user = APP.user;
+          if (!user) return;
+
+          $all("[data-role]", root).forEach(el => {
+            if (el.dataset.role !== user.role) el.remove();
+          });
+
+          $all("[data-permission]", root).forEach(el => {
+            if (!user.permissions?.includes(el.dataset.permission)) el.remove();
+          });
+
+          $all("[data-plan]", root).forEach(el => {
+            if (user.plan !== el.dataset.plan) el.remove();
+          });
+        }
+
+        // ----------------------------
+        // PARTIAL LOADER
+        // ----------------------------
+        function loadPage(page) {
+          return fetch(`${PARTIALS_BASE}/${page}.html`)
+            .then(res => res.text())
+            .then(html => {
+              const area = $("#content-area");
+              if (!area) throw new Error("#content-area bulunamadı");
+
+              area.innerHTML = html;
+              runPageGuards(area);
+
+              // route'a özel JS
+              if (typeof APP.pendingOnLoad === "function") {
+                setTimeout(() => {
+                  try {
+                    APP.pendingOnLoad();
+                    window.dispatchEvent(new Event("resize"));
+                  } catch (e) {
+                    console.error("Route onLoad hata:", e);
+                  } finally {
+                    APP.pendingOnLoad = null;
+                  }
+                }, 50);
+              } else {
+                APP.pendingOnLoad = null;
+              }
+            })
+            .catch(err => console.error("Partial yüklenemedi:", err));
+        }
+
+        // ----------------------------
+        // ROUTING
+        // ----------------------------
+        function go(routeName) {
+          APP.user = getUser();
+          if (!APP.user) return redirectLogin();
+
+          const route = window.ROUTES?.[routeName];
+          if (!route) return loadPage("forbidden");
+
+          // role kontrol
+          if (route.roles?.length && !route.roles.includes(APP.user.role)) {
+            return loadPage("forbidden");
+          }
+
+          // permission kontrol
+          if (route.permissions?.length) {
+            const ok = route.permissions.every(p => APP.user.permissions?.includes(p));
+            if (!ok) return loadPage("forbidden");
+          }
+
+          document.title = route.title || "Admin";
+          APP.pendingOnLoad = typeof route.onLoad === "function" ? route.onLoad : null;
+
+          setActiveMenu(routeName);
+          return loadPage(route.partial);
+        }
+
+        // ----------------------------
+        // MENU (dynamic + Sneat init)
+        // ----------------------------
+        function setActiveMenu(routeName) {
+          document.querySelectorAll("#menu-area .menu-item")
+            .forEach(li => li.classList.remove("active", "open"));
+
+          const link = document.querySelector(`#menu-area [data-route="${routeName}"]`);
+          if (!link) return;
+
+          const item = link.closest(".menu-item");
+          item?.classList.add("active");
+
+          const parent = item?.closest(".menu-sub")?.closest(".menu-item");
+          parent?.classList.add("active", "open");
+        }
+
+        function bindMenuClicks() {
+          $all("#menu-area [data-route]").forEach(a => {
+            a.addEventListener("click", (e) => {
+              e.preventDefault();
+              go(a.dataset.route);
+            });
+          });
+        }
+
+        function loadScriptOnce(id, src) {
+          return new Promise((resolve, reject) => {
+            if (document.getElementById(id)) return resolve();
+
+            const s = document.createElement("script");
+            s.id = id;
+            s.src = src;
+            s.onload = resolve;
+            s.onerror = reject;
+            document.body.appendChild(s);
+          });
+        }
+
+        async function initSneatMenuOnce() {
+          // Menü artık partial geldiği için Sneat init'i bir kere yapıyoruz
+          if (APP.sneatInitialized) return;
+          APP.sneatInitialized = true;
+
+          try {
+            await loadScriptOnce("sneat-menu-js", "../assets/vendor/js/menu.js");
+            await loadScriptOnce("sneat-main-js", "../assets/js/main.js");
+          } catch (e) {
+            console.error("Sneat init script yüklenemedi:", e);
+          }
+        }
+
+        function loadMenu() {
+          return fetch(`${PARTIALS_BASE}/menu.html`)
+            .then(r => r.text())
+            .then(async html => {
+              const menuArea = $("#menu-area");
+              if (!menuArea) throw new Error("#menu-area bulunamadı");
+
+              menuArea.innerHTML = html;
+
+              runPageGuards(menuArea);
+              bindMenuClicks();
+
+              // Sneat menu scroll vb.
+              await initSneatMenuOnce();
+            })
+            .catch(err => console.error("Menu yüklenemedi:", err));
+        }
+
+        // ----------------------------
+        // LOGOUT
+        // ----------------------------
+        function bindLogout() {
+          const logoutBtn = $("#logoutBtn");
+          if (!logoutBtn) return;
+
+          logoutBtn.addEventListener("click", () => {
+            localStorage.removeItem("token");
+            localStorage.removeItem("user");
+            redirectLogin();
+          });
+        }
+
+        // ----------------------------
+        // BOOT
+        // ----------------------------
+        async function boot() {
+          APP.user = getUser();
+          if (!APP.user) return redirectLogin();
+
+          bindLogout();
+          await loadMenu();
+
+          // ilk açılış
+          go(DEFAULT_ROUTE);
+        }
+
+        // global erişim istersen (console’dan çağırmak için)
+        window.go = go;
+
+        boot();
+      })();
+    </script>
+
+  </body>
+</html>
