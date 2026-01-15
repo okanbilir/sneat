@@ -1,4 +1,5 @@
 <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
+
     <div class="app-brand demo">
     <a href="index.html" class="app-brand-link">
         <span class="app-brand-logo demo">
@@ -65,25 +66,15 @@
     <div class="menu-inner-shadow"></div>
 
     <ul class="menu-inner py-1">
-    <!-- Dashboards -->
-    <li class="menu-item" data-role="admin">
-        <a href="javascript:void(0);" class="menu-link menu-toggle">
-            <i class="menu-icon tf-icons bx bx-home-smile"></i>
-            <div class="text-truncate">Dashboards</div>
-        </a>
-
-        <ul class="menu-sub">
-            <li class="menu-item">
-            <a href="javascript:void(0);" 
-                class="menu-link"
-                data-route="dashboardAdmin">
-                <div class="text-truncate">Analytics</div>
-            </a>
-            </li>
-        </ul>
+    <!-- Dashboard (role bazli) -->
+    <li class="menu-item">
+      <a href="javascript:void(0);" class="menu-link" data-route="dashboard">
+        <i class="menu-icon tf-icons bx bx-home-smile"></i>
+        <div class="text-truncate">Dashboard</div>
+      </a>
     </li>
-    <!-- Sosyal Alanlar (Resident) -->
-    <li class="menu-item" data-permission="FACILITY_VIEW" data-role="resident">
+    <!-- Sosyal Alanlar (Tenant) -->
+    <li class="menu-item" data-permission="FACILITY_VIEW" data-role="tenant">
     <a href="javascript:void(0);" class="menu-link menu-toggle">
         <i class="menu-icon tf-icons bx bx-dumbbell"></i>
         <div class="text-truncate">Sosyal Alanlar</div>
@@ -111,7 +102,7 @@
     </li>
 
     <!-- Sosyal Alan Yönetimi (Admin / Facility Manager) -->
-    <li class="menu-item" data-permission="FACILITY_MANAGE" data-role="admin">
+    <li class="menu-item" data-permission="FACILITY_MANAGE">
     <a href="javascript:void(0);" class="menu-link menu-toggle">
         <i class="menu-icon tf-icons bx bx-buildings"></i>
         <div class="text-truncate">Sosyal Alan Yönetimi</div>
@@ -136,7 +127,7 @@
     </li>
 
     <!-- Güvenlik -->
-    <li class="menu-item" data-permission="FACILITY_CHECKIN" data-role="security">
+    <li class="menu-item" data-permission="FACILITY_CHECKIN">
     <a href="javascript:void(0);" class="menu-link" data-route="facilityCheckin">
         <i class="menu-icon tf-icons bx bx-qr-scan"></i>
         <div class="text-truncate">Tesis Giriş Kontrol</div>

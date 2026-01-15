@@ -11,7 +11,7 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
 
-    <title>Kentra Login</title>
+    <title>Demo: Register Basic - Pages | Sneat - Bootstrap Dashboard FREE</title>
 
     <meta name="description" content="" />
 
@@ -58,12 +58,12 @@
     <div class="container-xxl">
       <div class="authentication-wrapper authentication-basic container-p-y">
         <div class="authentication-inner">
-          <!-- Register -->
+          <!-- Register Card -->
           <div class="card px-sm-6 px-0">
             <div class="card-body">
               <!-- Logo -->
-              <div class="app-brand justify-content-center">
-                <a class="app-brand-link gap-2">
+              <div class="app-brand justify-content-center mb-6">
+                <a href="index.html" class="app-brand-link gap-2">
                   <span class="app-brand-logo demo">
                     <span class="text-primary">
                       <svg
@@ -115,26 +115,30 @@
                       </svg>
                     </span>
                   </span>
-                  <span class="app-brand-text demo text-heading fw-bold">Kentra</span>
+                  <span class="app-brand-text demo text-heading fw-bold">Sneat</span>
                 </a>
               </div>
               <!-- /Logo -->
-              <h4 class="mb-1">Welcome to Kentra Panel! 👋</h4>
-              <p class="mb-6">Lütfen oturum açınız.</p>
+              <h4 class="mb-1">Adventure starts here 🚀</h4>
+              <p class="mb-6">Make your app management easy and fun!</p>
 
               <form id="formAuthentication" class="mb-6" action="index.html">
                 <div class="mb-6">
-                  <label for="email" class="form-label">Email</label>
+                  <label for="username" class="form-label">Username</label>
                   <input
                     type="text"
                     class="form-control"
-                    id="email"
-                    name="email-username"
-                    placeholder="Email giriniz"
+                    id="username"
+                    name="username"
+                    placeholder="Enter your username"
                     autofocus />
                 </div>
-                <div class="mb-6 form-password-toggle">
-                  <label class="form-label" for="password">Şifre</label>
+                <div class="mb-6">
+                  <label for="email" class="form-label">Email</label>
+                  <input type="text" class="form-control" id="email" name="email" placeholder="Enter your email" />
+                </div>
+                <div class="form-password-toggle">
+                  <label class="form-label" for="password">Password</label>
                   <div class="input-group input-group-merge">
                     <input
                       type="password"
@@ -146,28 +150,41 @@
                     <span class="input-group-text cursor-pointer"><i class="icon-base bx bx-hide"></i></span>
                   </div>
                 </div>
-                <div class="mb-8">
-                  <div class="d-flex justify-content-between">
-                    <div class="form-check mb-0">
-                      <input class="form-check-input" type="checkbox" id="remember-me" />
-                      <label class="form-check-label" for="remember-me"> Hatılra Beni</label>
-                    </div>                    
+                <div class="my-7">
+                  <div class="form-check mb-0">
+                    <input class="form-check-input" type="checkbox" id="terms-conditions" name="terms" />
+                    <label class="form-check-label" for="terms-conditions">
+                      I agree to
+                      <a href="javascript:void(0);">privacy policy & terms</a>
+                    </label>
                   </div>
                 </div>
-                <div class="mb-6">
-                  <button class="btn btn-primary d-grid w-100" type="submit">Login</button>
-                </div>
-              </form>              
+                <button class="btn btn-primary d-grid w-100">Sign up</button>
+              </form>
+
+              <p class="text-center">
+                <span>Already have an account?</span>
+                <a href="auth-login-basic.html">
+                  <span>Sign in instead</span>
+                </a>
+              </p>
             </div>
           </div>
-          <!-- /Register -->
+          <!-- Register Card -->
         </div>
       </div>
     </div>
 
     <!-- / Content -->
 
-  
+    <div class="buy-now">
+      <a
+        href="https://themeselection.com/item/sneat-dashboard-pro-bootstrap/"
+        target="_blank"
+        class="btn btn-danger btn-buy-now"
+        >Upgrade to Pro</a
+      >
+    </div>
 
     <!-- Core JS -->
 
@@ -192,101 +209,5 @@
 
     <!-- Place this tag before closing body tag for github widget button. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
-   <script>
-      document.getElementById('formAuthentication').addEventListener('submit', async function (e) {
-        e.preventDefault();
-
-        const email = document.getElementById('email').value.trim();
-        const password = document.getElementById('password').value.trim();
-
-        if (!email || !password) {
-          alert('Email ve şifre zorunlu');
-          return;
-        }
-
-        try {
-          // BACKEND HAZIR DEGIL -> MOCK (demo hesaplar)
-          const DEMO = {
-            'admin@test.com': {
-              name: 'Admin',
-              role: 'admin',
-              plan: 'pro',
-              tenant_id: 1001,
-              permissions: [
-                'FACILITY_VIEW',
-                'FACILITY_BOOK',
-                'FACILITY_MANAGE',
-                'FACILITY_CHECKIN'
-              ]
-            },
-            'tenant@test.com': {
-              name: 'Kiraci',
-              role: 'tenant',
-              plan: 'standard',
-              tenant_id: 1001,
-              permissions: ['FACILITY_VIEW', 'FACILITY_BOOK']
-            },
-            'owner@test.com': {
-              name: 'Daire Sahibi',
-              role: 'owner',
-              plan: 'standard',
-              tenant_id: 1001,
-              permissions: ['FACILITY_VIEW']
-            },
-            'accountant@test.com': {
-              name: 'Muhasebe',
-              role: 'accountant',
-              plan: 'pro',
-              tenant_id: 1001,
-              permissions: []
-            },
-            'security@test.com': {
-              name: 'Guvenlik',
-              role: 'security',
-              plan: 'standard',
-              tenant_id: 1001,
-              permissions: ['FACILITY_CHECKIN']
-            },
-            'facility@test.com': {
-              name: 'Tesis Yoneticisi',
-              role: 'facility_manager',
-              plan: 'pro',
-              tenant_id: 1001,
-              permissions: ['FACILITY_VIEW', 'FACILITY_MANAGE']
-            },
-            'trainer@test.com': {
-              name: 'Egitmen',
-              role: 'trainer',
-              plan: 'standard',
-              tenant_id: 1001,
-              permissions: ['FACILITY_VIEW']
-            }
-          };
-
-          if (password !== '123456') {
-            throw new Error('Hatalı bilgiler');
-          }
-
-          const demoUser = DEMO[email];
-          if (!demoUser) {
-            throw new Error('Hatalı bilgiler');
-          }
-
-          const response = {
-            token: 'jwt-token',
-            user: demoUser
-          };
-
-          localStorage.setItem('token', response.token);
-          localStorage.setItem('user', JSON.stringify(response.user));
-
-          window.location.href = 'index.html';
-        } catch (err) {
-          alert(err.message || 'Giriş başarısız');
-        }
-      });
-    </script>
-
-
   </body>
 </html>
