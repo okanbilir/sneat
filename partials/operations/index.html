@@ -1,0 +1,283 @@
+<div class="container-xxl flex-grow-1 container-p-y">
+  <div class="d-flex align-items-start justify-content-between mb-3">
+    <div>
+      <h4 class="mb-1">Operasyon Merkezi</h4>
+      <small class="text-muted">Ziyaretçi • Kargo • Yemek (manuel giriş destekli)</small>
+    </div>
+
+    <div class="d-flex gap-2">
+      <button class="btn btn-sm btn-outline-secondary" id="opRefresh">
+        <i class="bx bx-refresh"></i>
+      </button>
+
+      <!-- Sekmeye göre değişecek -->
+      <div class="dropdown">
+        <button class="btn btn-sm btn-primary dropdown-toggle" data-bs-toggle="dropdown">
+          <i class="bx bx-plus me-1"></i> Yeni
+        </button>
+        <ul class="dropdown-menu dropdown-menu-end">
+          <li><a class="dropdown-item" href="javascript:void(0);" id="opNewVisitor"><i class="bx bx-user-plus me-2"></i>Ziyaretçi</a></li>
+          <li><a class="dropdown-item" href="javascript:void(0);" id="opNewParcel"><i class="bx bx-package me-2"></i>Kargo</a></li>
+          <li><a class="dropdown-item" href="javascript:void(0);" id="opNewFood"><i class="bx bx-bowl-hot me-2"></i>Yemek</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- KPI -->
+  <div class="row g-3 mb-3">
+    <div class="col-12 col-md-4">
+      <div class="card">
+        <div class="card-body d-flex align-items-center justify-content-between">
+          <div>
+            <small class="text-muted d-block">Bugün Ziyaretçi</small>
+            <h4 class="mb-0" id="kpiVisitors">0</h4>
+          </div>
+          <span class="badge bg-label-primary p-2"><i class="bx bx-id-card"></i></span>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 col-md-4">
+      <div class="card">
+        <div class="card-body d-flex align-items-center justify-content-between">
+          <div>
+            <small class="text-muted d-block">Bekleyen Kargo</small>
+            <h4 class="mb-0" id="kpiParcels">0</h4>
+          </div>
+          <span class="badge bg-label-warning p-2"><i class="bx bx-package"></i></span>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 col-md-4">
+      <div class="card">
+        <div class="card-body d-flex align-items-center justify-content-between">
+          <div>
+            <small class="text-muted d-block">Bekleyen Yemek</small>
+            <h4 class="mb-0" id="kpiFood">0</h4>
+          </div>
+          <span class="badge bg-label-success p-2"><i class="bx bx-bowl-hot"></i></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tabs -->
+  <div class="card">
+    <div class="card-header pb-0">
+      <ul class="nav nav-pills" role="tablist">
+        <li class="nav-item">
+          <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#tabVisitors" type="button" role="tab">
+            <i class="bx bx-user me-1"></i> Ziyaretçi
+          </button>
+        </li>
+        <li class="nav-item">
+          <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tabParcels" type="button" role="tab">
+            <i class="bx bx-package me-1"></i> Kargo
+          </button>
+        </li>
+        <li class="nav-item">
+          <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tabFood" type="button" role="tab">
+            <i class="bx bx-bowl-hot me-1"></i> Yemek
+          </button>
+        </li>
+      </ul>
+    </div>
+
+    <div class="card-body pt-3">
+      <!-- ortak filtre bar -->
+      <div class="row g-2 align-items-center mb-3">
+        <div class="col-12 col-lg-6">
+          <div class="input-group">
+            <span class="input-group-text"><i class="bx bx-search"></i></span>
+            <input id="opSearch" class="form-control" placeholder="Ara: ad / daire / takip / firma" />
+          </div>
+        </div>
+        <div class="col-12 col-lg-3">
+          <select id="opStatus" class="form-select">
+            <option value="">Durum: Tümü</option>
+            <option value="pending">Bekliyor</option>
+            <option value="in">İçeride</option>
+            <option value="out">Çıktı</option>
+            <option value="waiting">Bekleyen</option>
+            <option value="delivered">Teslim</option>
+          </select>
+        </div>
+        <div class="col-12 col-lg-3 text-lg-end">
+          <span class="badge bg-label-secondary" id="opCount">0</span>
+        </div>
+      </div>
+
+      <div class="tab-content">
+        <!-- Visitors -->
+        <div class="tab-pane fade show active" id="tabVisitors" role="tabpanel">
+          <div class="table-responsive">
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th>Ziyaretçi</th>
+                  <th>Daire</th>
+                  <th>Durum</th>
+                  <th>ETA</th>
+                  <th class="text-end">Aksiyon</th>
+                </tr>
+              </thead>
+              <tbody id="opVisitorsTbody"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Parcels -->
+        <div class="tab-pane fade" id="tabParcels" role="tabpanel">
+          <div class="table-responsive">
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th>Daire</th>
+                  <th>Firma</th>
+                  <th>Takip</th>
+                  <th>Durum</th>
+                  <th class="text-end">Aksiyon</th>
+                </tr>
+              </thead>
+              <tbody id="opParcelsTbody"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Food -->
+        <div class="tab-pane fade" id="tabFood" role="tabpanel">
+          <div class="table-responsive">
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th>Daire</th>
+                  <th>Firma</th>
+                  <th>Not</th>
+                  <th>Durum</th>
+                  <th class="text-end">Aksiyon</th>
+                </tr>
+              </thead>
+              <tbody id="opFoodTbody"></tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Visitor Modal -->
+<div class="modal fade" id="opVisitorModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <form class="modal-content" id="opVisitorForm">
+      <div class="modal-header">
+        <h5 class="modal-title">Yeni Ziyaretçi (Manuel)</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <div class="row g-3">
+          <div class="col-12 col-md-4">
+            <label class="form-label">Daire</label>
+            <input class="form-control" id="opVisUnit" required placeholder="B-12" />
+          </div>
+          <div class="col-12 col-md-8">
+            <label class="form-label">Ad Soyad</label>
+            <input class="form-control" id="opVisName" required placeholder="Ahmet Yılmaz" />
+          </div>
+          <div class="col-12 col-md-6">
+            <label class="form-label">Telefon</label>
+            <input class="form-control" id="opVisPhone" placeholder="05xx" />
+          </div>
+          <div class="col-12 col-md-6">
+            <label class="form-label">ETA</label>
+            <input class="form-control" id="opVisEta" type="datetime-local" />
+          </div>
+          <div class="col-12">
+            <label class="form-label">Not</label>
+            <textarea class="form-control" id="opVisNote" rows="2" placeholder="Örn: Bildirim yapılmadı, manuel giriş"></textarea>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline-secondary" type="button" data-bs-dismiss="modal">İptal</button>
+        <button class="btn btn-primary" type="submit"><i class="bx bx-save me-1"></i> Kaydet</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Parcel Modal -->
+<div class="modal fade" id="opParcelModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <form class="modal-content" id="opParcelForm">
+      <div class="modal-header">
+        <h5 class="modal-title">Yeni Kargo (Manuel)</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <div class="row g-3">
+          <div class="col-12 col-md-4">
+            <label class="form-label">Daire</label>
+            <input class="form-control" id="opParUnit" required placeholder="A-03" />
+          </div>
+          <div class="col-12 col-md-8">
+            <label class="form-label">Firma</label>
+            <input class="form-control" id="opParCarrier" required placeholder="Aras / Yurtiçi / Trendyol" />
+          </div>
+          <div class="col-12 col-md-6">
+            <label class="form-label">Takip</label>
+            <input class="form-control" id="opParTrack" placeholder="Opsiyonel" />
+          </div>
+          <div class="col-12 col-md-6">
+            <label class="form-label">Durum</label>
+            <select class="form-select" id="opParStatus">
+              <option value="waiting">Bekleyen</option>
+              <option value="delivered">Teslim</option>
+            </select>
+          </div>
+          <div class="col-12">
+            <label class="form-label">Not</label>
+            <textarea class="form-control" id="opParNote" rows="2" placeholder="Örn: Bildirim yapılmadı, manuel giriş"></textarea>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline-secondary" type="button" data-bs-dismiss="modal">İptal</button>
+        <button class="btn btn-primary" type="submit"><i class="bx bx-save me-1"></i> Kaydet</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Food Modal -->
+<div class="modal fade" id="opFoodModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <form class="modal-content" id="opFoodForm">
+      <div class="modal-header">
+        <h5 class="modal-title">Yeni Yemek (Manuel)</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <div class="row g-3">
+          <div class="col-12 col-md-4">
+            <label class="form-label">Daire</label>
+            <input class="form-control" id="opFoodUnit" required placeholder="B-12" />
+          </div>
+          <div class="col-12 col-md-8">
+            <label class="form-label">Firma</label>
+            <input class="form-control" id="opFoodVendor" required placeholder="Getir / Yemeksepeti / Restoran" />
+          </div>
+          <div class="col-12">
+            <label class="form-label">Not</label>
+            <textarea class="form-control" id="opFoodNote" rows="2" placeholder="Örn: Kapıda teslim / blok girişi"></textarea>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline-secondary" type="button" data-bs-dismiss="modal">İptal</button>
+        <button class="btn btn-primary" type="submit"><i class="bx bx-save me-1"></i> Kaydet</button>
+      </div>
+    </form>
+  </div>
+</div>

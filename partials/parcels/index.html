@@ -1,0 +1,169 @@
+<div class="container-xxl flex-grow-1 container-p-y">
+  <!-- Header -->
+  <div class="d-flex align-items-start justify-content-between mb-3">
+    <div>
+      <h4 class="mb-1">Kargolarım</h4>
+      <small class="text-muted">Bekleyen ve teslim alınan gönderiler</small>
+    </div>
+    <div class="d-flex gap-2">
+      <button class="btn btn-sm btn-outline-secondary" type="button" id="btnParcelRefresh">
+        <i class="bx bx-refresh me-1"></i> Yenile
+      </button>
+      <span class="badge bg-label-primary" id="parcelSelfCount">0</span>
+    </div>
+  </div>
+
+  <!-- KPI Cards -->
+  <div class="row g-3 mb-3">
+    <div class="col-12 col-md-4">
+      <div class="card">
+        <div class="card-body d-flex align-items-center justify-content-between">
+          <div>
+            <small class="text-muted d-block">Bekleyen</small>
+            <h4 class="mb-0" id="parcelKpiWaiting">0</h4>
+          </div>
+          <span class="badge bg-label-warning p-2"><i class="bx bx-time-five"></i></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12 col-md-4">
+      <div class="card">
+        <div class="card-body d-flex align-items-center justify-content-between">
+          <div>
+            <small class="text-muted d-block">Teslim Alınan</small>
+            <h4 class="mb-0" id="parcelKpiDelivered">0</h4>
+          </div>
+          <span class="badge bg-label-success p-2"><i class="bx bx-check-circle"></i></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12 col-md-4">
+      <div class="card">
+        <div class="card-body d-flex align-items-center justify-content-between">
+          <div>
+            <small class="text-muted d-block">Son 7 Gün</small>
+            <h4 class="mb-0" id="parcelKpiLast7">0</h4>
+          </div>
+          <span class="badge bg-label-primary p-2"><i class="bx bx-calendar"></i></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Filters -->
+  <div class="card mb-3">
+    <div class="card-body">
+      <div class="row g-2 align-items-center">
+        <div class="col-12 col-lg-5">
+          <div class="input-group">
+            <span class="input-group-text"><i class="bx bx-search"></i></span>
+            <input id="parcelSelfSearch" class="form-control" placeholder="Ara: firma / takip / not" />
+          </div>
+        </div>
+
+        <div class="col-12 col-lg-3">
+          <select id="parcelSelfStatus" class="form-select">
+            <option value="">Tümü</option>
+            <option value="waiting">Bekliyor</option>
+            <option value="delivered">Teslim Alındı</option>
+          </select>
+        </div>
+
+        <div class="col-12 col-lg-4 text-lg-end">
+          <div class="btn-group">
+            <button class="btn btn-outline-primary" type="button" id="btnParcelFilterWaiting">
+              <i class="bx bx-time-five me-1"></i> Bekleyen
+            </button>
+            <button class="btn btn-outline-success" type="button" id="btnParcelFilterDelivered">
+              <i class="bx bx-check-circle me-1"></i> Teslim
+            </button>
+            <button class="btn btn-outline-secondary" type="button" id="btnParcelFilterAll">
+              <i class="bx bx-grid-alt me-1"></i> Tümü
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Table -->
+  <div class="card">
+    <div class="card-header d-flex align-items-center justify-content-between">
+      <div>
+        <h5 class="mb-0">Gönderiler</h5>
+        <small class="text-muted">Daire bazlı liste (backend gelince gerçek veriye bağlanacak)</small>
+      </div>
+      <span class="badge bg-label-secondary" id="parcelSelfTableCount">0</span>
+    </div>
+
+    <div class="table-responsive">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>Firma</th>
+            <th>Takip</th>
+            <th>Durum</th>
+            <th>Tarih</th>
+            <th class="text-end">İşlem</th>
+          </tr>
+        </thead>
+        <tbody id="parcelSelfTbody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Detail Modal -->
+  <div class="modal fade" id="parcelSelfModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Kargo Detayı</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+
+        <div class="modal-body">
+          <div class="d-flex align-items-center gap-3 mb-3">
+            <div class="avatar">
+              <span class="avatar-initial rounded bg-label-primary" id="psAvatar">KG</span>
+            </div>
+            <div>
+              <div class="fw-semibold" id="psCarrier">-</div>
+              <small class="text-muted" id="psUnit">Birim: -</small>
+            </div>
+          </div>
+
+          <div class="row g-2">
+            <div class="col-12 col-md-6">
+              <div class="border rounded p-2">
+                <small class="text-muted d-block">Takip No</small>
+                <div class="fw-semibold" id="psTrack">-</div>
+              </div>
+            </div>
+            <div class="col-12 col-md-6">
+              <div class="border rounded p-2">
+                <small class="text-muted d-block">Durum</small>
+                <div class="fw-semibold" id="psStatus">-</div>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="border rounded p-2">
+                <small class="text-muted d-block">Not</small>
+                <div class="fw-semibold" id="psNote">-</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="alert alert-secondary mt-3 mb-0">
+            <small class="text-muted">Backend gelince teslim alan kişi / imza / fotoğraf gibi alanlar eklenebilir.</small>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button class="btn btn-outline-secondary" type="button" data-bs-dismiss="modal">Kapat</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

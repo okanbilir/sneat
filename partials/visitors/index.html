@@ -1,0 +1,140 @@
+<div class="container-xxl flex-grow-1 container-p-y">
+  <div class="d-flex align-items-start justify-content-between mb-3">
+    <div>
+      <h4 class="mb-1">Ziyaretçi Bildir</h4>
+      <small class="text-muted">Ziyaretçi kaydı oluştur, güvenlik hızlıca kontrol etsin.</small>
+    </div>
+    <span class="badge bg-label-primary" id="visSelfCount">0</span>
+  </div>
+
+  <div class="row g-3">
+    <!-- Form -->
+    <div class="col-12 col-xl-4">
+      <div class="card">
+        <div class="card-header">
+          <h5 class="mb-0">Yeni Ziyaretçi</h5>
+          <small class="text-muted">Backend gelince SMS/QR eklenebilir.</small>
+        </div>
+        <div class="card-body">
+          <form id="visForm">
+            <div class="mb-3">
+              <label class="form-label">Ad Soyad</label>
+              <input class="form-control" id="visName" required placeholder="Örn: Ahmet Yılmaz" />
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">Telefon (opsiyonel)</label>
+              <input class="form-control" id="visPhone" placeholder="05xx..." />
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">Geliş Tarihi / Saat</label>
+              <input class="form-control" id="visEta" type="datetime-local" />
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">Not</label>
+              <textarea class="form-control" id="visNote" rows="3" placeholder="Örn: Kargo teslim / Misafir"></textarea>
+            </div>
+
+            <div class="d-grid">
+              <button class="btn btn-primary" type="submit">
+                <i class="bx bx-save me-1"></i> Kaydet
+              </button>
+            </div>
+          </form>
+
+          <div class="alert alert-secondary mt-3 mb-0">
+            <small class="text-muted">Ziyaretçi geldiğinde güvenlik “Check-in” yapar.</small>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Liste -->
+    <div class="col-12 col-xl-8">
+      <div class="card">
+        <div class="card-header d-flex align-items-center justify-content-between">
+          <div>
+            <h5 class="mb-0">Ziyaretçilerim</h5>
+            <small class="text-muted">Bekleyen / giriş yapan / çıkan</small>
+          </div>
+          <div class="d-flex gap-2">
+            <select id="visSelfStatus" class="form-select form-select-sm" style="width: 180px;">
+              <option value="">Tümü</option>
+              <option value="pending">Bekliyor</option>
+              <option value="in">Giriş Yaptı</option>
+              <option value="out">Çıkış Yaptı</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="table-responsive">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>Ziyaretçi</th>
+                <th>Durum</th>
+                <th>ETA</th>
+                <th class="text-end">İşlem</th>
+              </tr>
+            </thead>
+            <tbody id="visSelfTbody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Detay Modal -->
+  <div class="modal fade" id="visSelfModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Ziyaretçi Detayı</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <div class="d-flex align-items-center gap-3 mb-3">
+            <div class="avatar">
+              <span class="avatar-initial rounded bg-label-primary" id="vsAvatar">ZY</span>
+            </div>
+            <div>
+              <div class="fw-semibold" id="vsName">-</div>
+              <small class="text-muted" id="vsUnit">Birim: -</small>
+            </div>
+          </div>
+
+          <div class="row g-2">
+            <div class="col-12 col-md-6">
+              <div class="border rounded p-2">
+                <small class="text-muted d-block">Telefon</small>
+                <div class="fw-semibold" id="vsPhone">-</div>
+              </div>
+            </div>
+            <div class="col-12 col-md-6">
+              <div class="border rounded p-2">
+                <small class="text-muted d-block">Durum</small>
+                <div class="fw-semibold" id="vsStatus">-</div>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="border rounded p-2">
+                <small class="text-muted d-block">Not</small>
+                <div class="fw-semibold" id="vsNote">-</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="alert alert-secondary mt-3 mb-0">
+            <small class="text-muted">Backend gelince QR kod ile hızlı check-in eklenecek.</small>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-outline-secondary" type="button" data-bs-dismiss="modal">Kapat</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

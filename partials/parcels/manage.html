@@ -1,0 +1,104 @@
+<div class="container-xxl flex-grow-1 container-p-y">
+  <div class="d-flex align-items-center justify-content-between mb-3">
+    <div>
+      <h4 class="mb-1">Kargo Yönetimi</h4>
+      <small class="text-muted">Yeni kargo girişi, teslim işlemi (dummy)</small>
+    </div>
+
+    <button class="btn btn-primary" id="btnNewParcel">
+      <i class="bx bx-plus me-1"></i> Yeni Kargo
+    </button>
+  </div>
+
+   <!-- Filters -->
+  <div class="card mb-3">
+    <div class="card-body">
+      <div class="row g-2 align-items-center">
+        <div class="col-12 col-lg-5">
+          <div class="input-group">
+            <span class="input-group-text"><i class="bx bx-search"></i></span>
+            <input id="parcelSelfSearch" class="form-control" placeholder="Ara: firma / takip / not" />
+          </div>
+        </div>
+
+        <div class="col-12 col-lg-3">
+          <select id="parcelSelfStatus" class="form-select">
+            <option value="">Tümü</option>
+            <option value="waiting">Bekliyor</option>
+            <option value="delivered">Teslim Alındı</option>
+          </select>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="table-responsive">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Daire</th>
+            <th>Firma</th>
+            <th>Takip</th>
+            <th>Durum</th>
+            <th class="text-end">İşlem</th>
+          </tr>
+        </thead>
+        <tbody id="parcelMngTbody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal fade" id="parcelModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+      <form class="modal-content" id="parcelForm">
+        <div class="modal-header">
+          <h5 class="modal-title">Kargo</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+
+        <div class="modal-body">
+          <input type="hidden" id="parcelId" />
+
+          <div class="row g-3">
+            <div class="col-12 col-md-4">
+              <label class="form-label">Daire</label>
+              <input class="form-control" id="parcelUnit" required placeholder="Örn: B-12" />
+            </div>
+            <div class="col-12 col-md-8">
+              <label class="form-label">Firma</label>
+              <input class="form-control" id="parcelCarrier" required placeholder="Yurtiçi / Aras / Trendyol..." />
+            </div>
+
+            <div class="col-12 col-md-6">
+              <label class="form-label">Takip No</label>
+              <input class="form-control" id="parcelTrack" placeholder="Opsiyonel" />
+            </div>
+
+            <div class="col-12 col-md-6">
+              <label class="form-label">Durum</label>
+              <select class="form-select" id="parcelStatus">
+                <option value="waiting">Bekliyor</option>
+                <option value="delivered">Teslim</option>
+              </select>
+            </div>
+
+            <div class="col-12">
+              <label class="form-label">Not</label>
+              <textarea class="form-control" id="parcelNote" rows="3" placeholder="Örn: Kapıda bırakıldı"></textarea>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button class="btn btn-outline-secondary" type="button" data-bs-dismiss="modal">İptal</button>
+          <button class="btn btn-primary" type="submit">
+            <i class="bx bx-save me-1"></i> Kaydet
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

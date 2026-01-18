@@ -1,0 +1,64 @@
+<div class="container-xxl flex-grow-1 container-p-y">
+  <div class="d-flex align-items-start justify-content-between mb-3">
+    <div>
+      <h4 class="mb-1">Ziyaretçi Yönetimi</h4>
+      <small class="text-muted">Check-in / Check-out, hızlı filtre (dummy)</small>
+    </div>
+    <span class="badge bg-label-secondary" id="visMngCount">0</span>
+  </div>
+
+  <!-- Filters -->
+  <div class="card mb-3">
+    <div class="card-body">
+      <div class="row g-2 align-items-center">
+        <div class="col-12 col-lg-5">
+          <div class="input-group">
+            <span class="input-group-text"><i class="bx bx-search"></i></span>
+            <input id="visMngSearch" class="form-control" placeholder="Ara: isim / birim / telefon" />
+          </div>
+        </div>
+
+        <div class="col-12 col-lg-3">
+          <select id="visMngStatus" class="form-select">
+            <option value="">Tümü</option>
+            <option value="pending">Bekliyor</option>
+            <option value="in">İçeride</option>
+            <option value="out">Çıktı</option>
+          </select>
+        </div>
+
+        <div class="col-12 col-lg-4 text-lg-end">
+          <div class="btn-group">
+            <button class="btn btn-outline-primary" type="button" id="btnVisMngPending">
+              <i class="bx bx-time-five me-1"></i> Bekleyen
+            </button>
+            <button class="btn btn-outline-success" type="button" id="btnVisMngIn">
+              <i class="bx bx-log-in-circle me-1"></i> İçeride
+            </button>
+            <button class="btn btn-outline-secondary" type="button" id="btnVisMngAll">
+              <i class="bx bx-grid-alt me-1"></i> Tümü
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Table -->
+  <div class="card">
+    <div class="table-responsive">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>Ziyaretçi</th>
+            <th>Birim</th>
+            <th>Durum</th>
+            <th>ETA</th>
+            <th class="text-end">Aksiyon</th>
+          </tr>
+        </thead>
+        <tbody id="visMngTbody"></tbody>
+      </table>
+    </div>
+  </div>
+</div>

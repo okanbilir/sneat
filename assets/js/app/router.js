@@ -110,6 +110,33 @@
       onLoad: () => window.initVisits?.()
     },
 
+
+    // --- Ziyaretçi --- SİL
+    visitors: {
+      title: 'Ziyaretçi Bildir',
+      partial: 'visitors/index',
+      roles: ['tenant','owner'],
+      permissions: ['VISITOR_CREATE|VISITOR_SELF_VIEW'],
+      onLoad: () => window.initVisitors?.()
+    },
+    visitorsManage: {
+      title: 'Ziyaretçi Yönetimi',
+      partial: 'visitors/manage',
+      roles: ['security','admin'],
+      permissions: ['VISITOR_MANAGE'],
+      onLoad: () => window.initVisitorsManage?.()
+    },
+// //////////////////// SİL
+
+    operations: {
+      title: 'Operasyon Merkezi',
+      partial: 'operations/index',
+      roles: ['security','admin'],
+      permissions: ['VISITOR_MANAGE|PARCEL_MANAGE|FOOD_MANAGE'],
+      onLoad: () => window.initOperations?.()
+    },
+
+
     // -------- Sosyal Alanlar --------
     facilities: {
       title: 'Sosyal Alanlar',
@@ -201,6 +228,21 @@
       roles: ['admin','staff_cleaning','staff_tech'],
       permissions: ['MAINTENANCE_MANAGE'],
       onLoad: () => window.initMaintenanceManage?.()
+    },
+    // --- Kargo ---
+    parcels: {
+      title: 'Kargolarım',
+      partial: 'parcels/index',
+      roles: ['tenant', 'owner'],
+      permissions: ['PARCEL_SELF_VIEW'],
+      onLoad: () => window.initParcels?.()
+    },
+    parcelsManage: {
+      title: 'Kargo Yönetimi',
+      partial: 'parcels/manage',
+      roles: ['security', 'admin'],
+      permissions: ['PARCEL_MANAGE'],
+      onLoad: () => window.initParcelsManage?.()
     },
 
     forbidden: {

@@ -181,6 +181,37 @@
         <div class="text-truncate">İş Emri Yönetimi</div>
       </a>
     </li>
+    
+    <!-- Tenant/Owner: Kargolarım -->
+    <li class="menu-item" data-role="tenant|owner" data-permission="PARCEL_SELF_VIEW">
+      <a href="javascript:void(0);" class="menu-link" data-route="parcels">
+        <i class="menu-icon tf-icons bx bx-package"></i>
+        <div class="text-truncate">Kargolarım</div>
+      </a>
+    </li>
+
+    <!-- Tenant/Owner -->
+    <li class="menu-item" data-role="tenant|owner" data-permission="VISITOR_CREATE">
+      <a href="javascript:void(0);" class="menu-link" data-route="visitors">
+        <i class="menu-icon tf-icons bx bx-user-plus"></i>
+        <div class="text-truncate">Ziyaretçi Bildir</div>
+      </a>
+    </li>
+
+
+    <!-- Security/Admin -->
+    <li class="menu-header small text-uppercase" data-role="security|admin">
+      <span class="menu-header-text">OP/Ziyaretçi/Kargo</span>
+    </li>
+
+    <li class="menu-item" data-role="security|admin" data-permission="VISITOR_MANAGE|PARCEL_MANAGE|FOOD_MANAGE">
+      <a href="javascript:void(0);" class="menu-link" data-route="operations">
+        <i class="menu-icon tf-icons bx bx-shield-quarter"></i>
+        <div class="text-truncate">Operasyon Merkezi</div>
+      </a>
+    </li>
+
+
 
   </ul>
 </aside>
