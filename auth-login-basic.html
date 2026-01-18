@@ -207,7 +207,7 @@
         try {
           // BACKEND HAZIR DEGIL -> MOCK (demo hesaplar)
           const DEMO = {
-            'admin@test.com': {
+            'admin': {
               name: 'Admin',
               role: 'admin',
               plan: 'pro',
@@ -219,42 +219,42 @@
                 'FACILITY_CHECKIN'
               ]
             },
-            'tenant@test.com': {
+            'tenant': {
               name: 'Kiraci',
               role: 'tenant',
               plan: 'standard',
               tenant_id: 1001,
               permissions: ['FACILITY_VIEW', 'FACILITY_BOOK']
             },
-            'owner@test.com': {
+            'owner': {
               name: 'Daire Sahibi',
               role: 'owner',
               plan: 'standard',
               tenant_id: 1001,
               permissions: ['FACILITY_VIEW']
             },
-            'accountant@test.com': {
+            'accountant': {
               name: 'Muhasebe',
               role: 'accountant',
               plan: 'pro',
               tenant_id: 1001,
               permissions: []
             },
-            'security@test.com': {
+            'security': {
               name: 'Guvenlik',
               role: 'security',
               plan: 'standard',
               tenant_id: 1001,
               permissions: ['FACILITY_CHECKIN']
             },
-            'facility@test.com': {
+            'facility': {
               name: 'Tesis Yoneticisi',
               role: 'facility_manager',
               plan: 'pro',
               tenant_id: 1001,
               permissions: ['FACILITY_VIEW', 'FACILITY_MANAGE']
             },
-            'trainer@test.com': {
+            'trainer': {
               name: 'Egitmen',
               role: 'trainer',
               plan: 'standard',
