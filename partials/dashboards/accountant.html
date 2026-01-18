@@ -1,12 +1,263 @@
+<!-- partials/dashboards/accountant.html -->
 <div class="container-xxl flex-grow-1 container-p-y">
-  <div class="row">
-    <div class="col-12">
-      <div class="card">
+
+  <!-- Header -->
+  <div class="row mb-4">
+    <div class="col-12 d-flex flex-wrap align-items-center justify-content-between gap-2">
+      <div>
+        <h4 class="fw-bold mb-1">Finans Paneli</h4>
+        <p class="text-muted mb-0">Aidat, tahsilat, borç/alacak ve hareketler özeti</p>
+      </div>
+
+      <div class="d-flex gap-2 flex-wrap">
+        <div class="btn-group">
+          <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-bs-toggle="dropdown">
+            <i class="bx bx-plus me-1"></i> Yeni İşlem
+          </button>
+          <ul class="dropdown-menu dropdown-menu-end">
+            <li><a class="dropdown-item" href="javascript:void(0);"><i class="bx bx-wallet me-2"></i>Aidat Oluştur (dummy)</a></li>
+            <li><a class="dropdown-item" href="javascript:void(0);"><i class="bx bx-receipt me-2"></i>Tahsilat Gir (dummy)</a></li>
+            <li><a class="dropdown-item" href="javascript:void(0);"><i class="bx bx-transfer-alt me-2"></i>Borç/Alacak Ekle (dummy)</a></li>
+          </ul>
+        </div>
+
+        <a href="javascript:void(0);" class="btn btn-outline-primary btn-sm" data-route="ledger">
+          <i class="bx bx-receipt me-1"></i> Hareketler
+        </a>
+
+        <a href="javascript:void(0);" class="btn btn-outline-secondary btn-sm" data-route="reports">
+          <i class="bx bx-bar-chart-square me-1"></i> Raporlar
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- KPI Cards -->
+  <div class="row g-4 mb-4">
+
+    <div class="col-xl-3 col-md-6">
+      <div class="card h-100">
         <div class="card-body">
-          <h5 class="card-title">Muhasebe Dashboard</h5>
-          <p class="mb-0 text-muted">Aidat / tahsilat / fatura ekranlarina buradan hizli erisim eklenecek.</p>
+          <div class="d-flex align-items-center justify-content-between mb-3">
+            <div class="avatar">
+              <span class="avatar-initial rounded bg-label-success">
+                <i class="bx bx-wallet"></i>
+              </span>
+            </div>
+            <span class="badge bg-label-success">Bu Ay</span>
+          </div>
+          <span class="fw-semibold d-block mb-1">Tahsilat</span>
+          <h3 class="card-title mb-0">₺ 0</h3>
+          <small class="text-body-secondary">Dummy veri</small>
         </div>
       </div>
     </div>
+
+    <div class="col-xl-3 col-md-6">
+      <div class="card h-100">
+        <div class="card-body">
+          <div class="d-flex align-items-center justify-content-between mb-3">
+            <div class="avatar">
+              <span class="avatar-initial rounded bg-label-danger">
+                <i class="bx bx-error-circle"></i>
+              </span>
+            </div>
+            <span class="badge bg-label-danger">Gecikme</span>
+          </div>
+          <span class="fw-semibold d-block mb-1">Geciken Aidat</span>
+          <h3 class="card-title mb-0">₺ 0</h3>
+          <small class="text-body-secondary">Dummy veri</small>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-xl-3 col-md-6">
+      <div class="card h-100">
+        <div class="card-body">
+          <div class="d-flex align-items-center justify-content-between mb-3">
+            <div class="avatar">
+              <span class="avatar-initial rounded bg-label-warning">
+                <i class="bx bx-transfer-alt"></i>
+              </span>
+            </div>
+            <span class="badge bg-label-warning">Özet</span>
+          </div>
+          <span class="fw-semibold d-block mb-1">Toplam Borç</span>
+          <h3 class="card-title mb-0">₺ 0</h3>
+          <small class="text-body-secondary">Dummy veri</small>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-xl-3 col-md-6">
+      <div class="card h-100">
+        <div class="card-body">
+          <div class="d-flex align-items-center justify-content-between mb-3">
+            <div class="avatar">
+              <span class="avatar-initial rounded bg-label-info">
+                <i class="bx bx-trending-up"></i>
+              </span>
+            </div>
+            <span class="badge bg-label-info">Özet</span>
+          </div>
+          <span class="fw-semibold d-block mb-1">Toplam Alacak</span>
+          <h3 class="card-title mb-0">₺ 0</h3>
+          <small class="text-body-secondary">Dummy veri</small>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Charts + Side Panel -->
+  <div class="row g-4">
+
+    <div class="col-12 col-xxl-8">
+      <div class="card">
+        <div class="card-header d-flex align-items-center justify-content-between">
+          <div>
+            <h5 class="mb-0">Tahsilat Trend</h5>
+            <small class="text-body-secondary">Aylık tahsilat eğilimi (dummy)</small>
+          </div>
+          <div class="d-flex gap-2">
+            <button class="btn btn-sm btn-outline-secondary" type="button">
+              <i class="bx bx-download me-1"></i> Dışa Aktar
+            </button>
+            <button class="btn btn-sm btn-outline-primary" type="button" data-route="dues">
+              <i class="bx bx-wallet me-1"></i> Aidat
+            </button>
+          </div>
+        </div>
+
+        <div class="card-body">
+          <!-- ApexCharts container MUST be empty -->
+          <div id="acctCollectionChart" style="height: 320px;"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12 col-xxl-4">
+      <div class="card h-100">
+        <div class="card-header d-flex align-items-center justify-content-between">
+          <div>
+            <h5 class="mb-0">Hızlı Durum</h5>
+            <small class="text-body-secondary">Bugün / bu hafta</small>
+          </div>
+          <span class="badge bg-label-secondary">Live</span>
+        </div>
+
+        <div class="card-body">
+          <!-- Mini sparkline chart container -->
+          <div id="acctMiniSpark" style="height: 90px;"></div>
+
+          <ul class="list-group list-group-flush mt-2">
+            <li class="list-group-item d-flex justify-content-between align-items-center px-0">
+              <span><i class="bx bx-wallet me-2 text-success"></i>Bugün Tahsilat</span>
+              <span class="fw-semibold">₺ 0</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center px-0">
+              <span><i class="bx bx-transfer-alt me-2 text-warning"></i>Bugün Yeni Borç</span>
+              <span class="fw-semibold">₺ 0</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center px-0">
+              <span><i class="bx bx-bell me-2 text-primary"></i>Ödeme Bildirimi</span>
+              <span class="fw-semibold">0</span>
+            </li>
+          </ul>
+
+          <div class="d-flex gap-2 mt-3">
+            <a href="javascript:void(0);" class="btn btn-outline-primary w-100" data-route="debts">
+              <i class="bx bx-transfer-alt me-1"></i> Borç/Alacak
+            </a>
+            <a href="javascript:void(0);" class="btn btn-outline-secondary w-100" data-route="ledger">
+              <i class="bx bx-receipt me-1"></i> Ekstre
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Son İşlemler -->
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header d-flex align-items-center justify-content-between">
+          <div>
+            <h5 class="mb-0">Son İşlemler</h5>
+            <small class="text-body-secondary">En güncel işlemler (dummy)</small>
+          </div>
+          <a href="javascript:void(0);" class="btn btn-sm btn-outline-secondary" data-route="ledger">
+            <i class="bx bx-list-ul me-1"></i> Tümü
+          </a>
+        </div>
+
+        <div class="card-body">
+          <div class="table-responsive text-nowrap">
+            <table class="table align-middle">
+              <thead>
+                <tr>
+                  <th>Tarih</th>
+                  <th>Kişi</th>
+                  <th>Tür</th>
+                  <th>Tutar</th>
+                  <th>Durum</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>—</td>
+                  <td>
+                    <div class="d-flex align-items-center">
+                      <div class="avatar avatar-xs me-2">
+                        <span class="avatar-initial rounded bg-label-primary">A</span>
+                      </div>
+                      <div class="fw-semibold">—</div>
+                    </div>
+                  </td>
+                  <td><span class="badge bg-label-info">Aidat</span></td>
+                  <td class="fw-semibold">₺ 0</td>
+                  <td><span class="badge bg-label-success">Tamamlandı</span></td>
+                </tr>
+
+                <tr>
+                  <td>—</td>
+                  <td>
+                    <div class="d-flex align-items-center">
+                      <div class="avatar avatar-xs me-2">
+                        <span class="avatar-initial rounded bg-label-warning">K</span>
+                      </div>
+                      <div class="fw-semibold">—</div>
+                    </div>
+                  </td>
+                  <td><span class="badge bg-label-warning">Borç</span></td>
+                  <td class="fw-semibold">₺ 0</td>
+                  <td><span class="badge bg-label-secondary">Bekliyor</span></td>
+                </tr>
+
+                <tr>
+                  <td>—</td>
+                  <td>
+                    <div class="d-flex align-items-center">
+                      <div class="avatar avatar-xs me-2">
+                        <span class="avatar-initial rounded bg-label-success">M</span>
+                      </div>
+                      <div class="fw-semibold">—</div>
+                    </div>
+                  </td>
+                  <td><span class="badge bg-label-primary">Tahsilat</span></td>
+                  <td class="fw-semibold">₺ 0</td>
+                  <td><span class="badge bg-label-success">Tamamlandı</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="alert alert-info mt-3 mb-0">
+            <i class="bx bx-info-circle me-1"></i>
+            Backend hazır olunca burası gerçek işlemlerle dolacak.
+          </div>
+        </div>
+      </div>
+    </div>
+
   </div>
 </div>

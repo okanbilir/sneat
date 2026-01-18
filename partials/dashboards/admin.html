@@ -1,78 +1,179 @@
+<!-- partials/dashboards/admin.html -->
 <div class="container-xxl flex-grow-1 container-p-y">
 
-  <!-- Başlık -->
-  <div class="row mb-4">
-    <div class="col-12">
-      <h4 class="fw-bold mb-1">Hoşgeldins 👋</h4>
-      <p class="text-muted mb-0">Site Yönetim Genel Özeti</p>
+  <!-- ÜST: Hoşgeldin + küçük özet kartlar (dashboard1 görünümü) -->
+  <div class="row g-4 mb-4">
+    <div class="col-xxl-8 order-0">
+      <div class="card">
+        <div class="d-flex align-items-start row">
+          <div class="col-sm-7">
+            <div class="card-body">
+              <h5 class="card-title text-primary mb-2">Hoşgeldin 👋</h5>
+              <p class="mb-4">
+                Yönetim paneline genel bakış. Aidat, borç/alacak ve giriş-çıkış özetlerini buradan takip edebilirsin.
+              </p>
+
+              <div class="d-flex gap-2 flex-wrap">
+                <a href="javascript:void(0);" class="btn btn-sm btn-outline-primary" data-route="dues">Aidat</a>
+                <a href="javascript:void(0);" class="btn btn-sm btn-outline-primary" data-route="ledger">Hareketler</a>
+                <a href="javascript:void(0);" class="btn btn-sm btn-outline-primary" data-route="visits">Giriş/Çıkış</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-sm-5 text-center text-sm-left">
+            <div class="card-body pb-0 px-0 px-md-4">
+              <img
+                src="assets/img/illustrations/man-with-laptop.png"
+                height="170"
+                alt="Admin Dashboard"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sağ üst: 2 küçük kart (dashboard1 stili) -->
+    <div class="col-xxl-4 col-lg-12 col-md-4 order-1">
+      <div class="row g-4">
+        <div class="col-lg-6 col-md-12 col-6">
+          <div class="card h-100">
+            <div class="card-body">
+              <div class="card-title d-flex align-items-start justify-content-between mb-3">
+                <div class="avatar flex-shrink-0">
+                  <span class="avatar-initial rounded bg-label-success">
+                    <i class="icon-base bx bx-wallet"></i>
+                  </span>
+                </div>
+              </div>
+              <p class="mb-1">Bu Ay Tahsilat</p>
+              <h4 class="card-title mb-0">₺ 0</h4>
+              <small class="text-body-secondary">Dummy veri</small>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-6 col-md-12 col-6">
+          <div class="card h-100">
+            <div class="card-body">
+              <div class="card-title d-flex align-items-start justify-content-between mb-3">
+                <div class="avatar flex-shrink-0">
+                  <span class="avatar-initial rounded bg-label-danger">
+                    <i class="icon-base bx bx-error-circle"></i>
+                  </span>
+                </div>
+              </div>
+              <p class="mb-1">Geciken Aidat</p>
+              <h4 class="card-title mb-0">₺ 0</h4>
+              <small class="text-body-secondary">Dummy veri</small>
+            </div>
+          </div>
+        </div>
+
+      </div>
     </div>
   </div>
 
-  <!-- Özet Kartlar -->
+  <!-- ÖZET KPI (ID'ler korunuyor) -->
   <div class="row g-4 mb-4">
 
     <div class="col-xl-3 col-md-6">
-      <div class="card">
+      <div class="card h-100">
         <div class="card-body">
+          <div class="d-flex align-items-center justify-content-between mb-3">
+            <div class="avatar">
+              <span class="avatar-initial rounded bg-label-primary">
+                <i class="icon-base bx bx-buildings"></i>
+              </span>
+            </div>
+          </div>
           <span class="fw-semibold d-block mb-1">Toplam Daire</span>
-          <h3 class="card-title mb-2" id="stat-apartments">0</h3>
-          <small class="text-success">Aktif</small>
+          <h3 class="card-title mb-0" id="stat-apartments">0</h3>
+          <small class="text-body-secondary">Aktif</small>
         </div>
       </div>
     </div>
 
     <div class="col-xl-3 col-md-6">
-      <div class="card">
+      <div class="card h-100">
         <div class="card-body">
+          <div class="d-flex align-items-center justify-content-between mb-3">
+            <div class="avatar">
+              <span class="avatar-initial rounded bg-label-info">
+                <i class="icon-base bx bx-user"></i>
+              </span>
+            </div>
+          </div>
           <span class="fw-semibold d-block mb-1">Toplam Kiracı</span>
-          <h3 class="card-title mb-2" id="stat-residents">0</h3>
-          <small class="text-info">Kayıtlı</small>
+          <h3 class="card-title mb-0" id="stat-residents">0</h3>
+          <small class="text-body-secondary">Kayıtlı</small>
         </div>
       </div>
     </div>
 
     <div class="col-xl-3 col-md-6">
-      <div class="card">
+      <div class="card h-100">
         <div class="card-body">
+          <div class="d-flex align-items-center justify-content-between mb-3">
+            <div class="avatar">
+              <span class="avatar-initial rounded bg-label-warning">
+                <i class="icon-base bx bx-dumbbell"></i>
+              </span>
+            </div>
+          </div>
           <span class="fw-semibold d-block mb-1">Aktif Tesis</span>
-          <h3 class="card-title mb-2" id="stat-facilities">0</h3>
-          <small class="text-warning">Kullanımda</small>
+          <h3 class="card-title mb-0" id="stat-facilities">0</h3>
+          <small class="text-body-secondary">Kullanımda</small>
         </div>
       </div>
     </div>
 
     <div class="col-xl-3 col-md-6">
-      <div class="card">
+      <div class="card h-100">
         <div class="card-body">
+          <div class="d-flex align-items-center justify-content-between mb-3">
+            <div class="avatar">
+              <span class="avatar-initial rounded bg-label-danger">
+                <i class="icon-base bx bx-time-five"></i>
+              </span>
+            </div>
+          </div>
           <span class="fw-semibold d-block mb-1">Bekleyen Talep</span>
-          <h3 class="card-title mb-2" id="stat-requests">0</h3>
-          <small class="text-danger">İnceleniyor</small>
+          <h3 class="card-title mb-0" id="stat-requests">0</h3>
+          <small class="text-body-secondary">İnceleniyor</small>
         </div>
       </div>
     </div>
 
   </div>
 
-  <!-- Grafik Alanı -->
-  <div class="row">
-    <div class="col-xl-8">
+  <!-- GRAFİK ALANI (dashboard1 yerleşimi + ID’ler korunuyor) -->
+  <div class="row g-4">
+    <div class="col-12 col-xxl-8">
       <div class="card">
-        <div class="card-header">
-          <h5 class="card-title mb-0">Aylık Aktivite</h5>
-        </div>
-        <div class="card-body">
-          <div id="dashboardActivityChart" style="height: 300px;"></div>
+        <div class="row row-bordered g-0">
+          <div class="col-lg-12">
+            <div class="card-header d-flex align-items-center justify-content-between">
+              <div class="card-title mb-0">
+                <h5 class="m-0 me-2">Aylık Aktivite</h5>
+                <small class="text-body-secondary">İşlem yoğunluğu / hareketler (dummy)</small>
+              </div>
+            </div>
+            <div id="dashboardActivityChart" class="px-3 pb-3" style="min-height: 320px;"></div>
+          </div>
         </div>
       </div>
     </div>
 
-    <div class="col-xl-4">
-      <div class="card">
+    <div class="col-12 col-xxl-4">
+      <div class="card h-100">
         <div class="card-header">
-          <h5 class="card-title mb-0">Dağılım</h5>
+          <h5 class="mb-0">Dağılım</h5>
+          <small class="text-body-secondary">Kullanıcı tipleri / oran (dummy)</small>
         </div>
         <div class="card-body">
-          <div id="dashboardPieChart" style="height: 300px;"></div>
+          <div id="dashboardPieChart" style="height: 320px;"></div>
         </div>
       </div>
     </div>
