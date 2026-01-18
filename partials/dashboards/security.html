@@ -5,38 +5,64 @@
   <div class="row mb-4">
     <div class="col-12 d-flex flex-wrap align-items-center justify-content-between gap-2">
       <div>
-        <h4 class="fw-bold mb-1">Güvenlik Paneli</h4>
-        <p class="text-muted mb-0">Giriş / çıkış, ziyaretçi ve tesis giriş kontrolü</p>
+        <h4 class="fw-bold mb-1">Güvenlik Operasyon Merkezi</h4>
+        <p class="text-muted mb-0">Anlık durum, uyarılar ve kapı/zon takibi</p>
       </div>
 
       <div class="d-flex gap-2 flex-wrap">
-        <a href="javascript:void(0);" class="btn btn-primary btn-sm" data-route="visits">
-          <i class="bx bx-log-in-circle me-1"></i> Yeni Kayıt (dummy)
+        <a href="javascript:void(0);" class="btn btn-primary btn-sm" data-route="facilityCheckin">
+          <i class="bx bx-qr-scan me-1"></i> QR Kontrol (dummy)
         </a>
         <a href="javascript:void(0);" class="btn btn-outline-primary btn-sm" data-route="visits">
-          <i class="bx bx-list-ul me-1"></i> Giriş / Çıkış
+          <i class="bx bx-list-ul me-1"></i> Kayıt Defteri
         </a>
-        <a href="javascript:void(0);" class="btn btn-outline-secondary btn-sm" data-route="facilityCheckin">
-          <i class="bx bx-qr-scan me-1"></i> Tesis Kontrol
-        </a>
+        <button type="button" class="btn btn-outline-secondary btn-sm" id="btnSecurityRefresh">
+          <i class="bx bx-refresh me-1"></i> Yenile
+        </button>
       </div>
     </div>
   </div>
 
-  <!-- KPI -->
+  <!-- ALERT STRIP (premium) -->
+  <div class="row mb-4">
+    <div class="col-12">
+      <div class="card border-0">
+        <div class="card-body d-flex flex-wrap align-items-center justify-content-between gap-2">
+          <div class="d-flex align-items-center gap-2">
+            <span class="avatar">
+              <span class="avatar-initial rounded bg-label-warning"><i class="bx bx-alarm-exclamation"></i></span>
+            </span>
+            <div>
+              <div class="fw-semibold">Aktif Uyarılar</div>
+              <small class="text-muted">Bugün: 2 kontrol kaydı • 0 acil durum (dummy)</small>
+            </div>
+          </div>
+          <div class="d-flex gap-2 flex-wrap">
+            <button class="btn btn-sm btn-outline-warning" type="button">
+              <i class="bx bx-shield-quarter me-1"></i> Kontroller
+            </button>
+            <button class="btn btn-sm btn-outline-secondary" type="button">
+              <i class="bx bx-bell me-1"></i> Bildirim Ayarı
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- KPI ROW (compact) -->
   <div class="row g-4 mb-4">
     <div class="col-xl-3 col-md-6">
       <div class="card h-100">
         <div class="card-body">
-          <div class="d-flex align-items-center justify-content-between mb-3">
-            <div class="avatar">
-              <span class="avatar-initial rounded bg-label-success"><i class="bx bx-log-in-circle"></i></span>
-            </div>
-            <span class="badge bg-label-success">Bugün</span>
+          <div class="d-flex align-items-center justify-content-between mb-2">
+            <span class="fw-semibold">Bugün Giriş</span>
+            <span class="badge bg-label-success">+128</span>
           </div>
-          <span class="fw-semibold d-block mb-1">Giriş</span>
-          <h3 class="card-title mb-0">128</h3>
-          <small class="text-body-secondary">Dummy veri</small>
+          <div class="d-flex align-items-center justify-content-between">
+            <small class="text-muted">Son 1 saat</small>
+            <small class="text-success fw-semibold">+18</small>
+          </div>
         </div>
       </div>
     </div>
@@ -44,15 +70,14 @@
     <div class="col-xl-3 col-md-6">
       <div class="card h-100">
         <div class="card-body">
-          <div class="d-flex align-items-center justify-content-between mb-3">
-            <div class="avatar">
-              <span class="avatar-initial rounded bg-label-danger"><i class="bx bx-log-out-circle"></i></span>
-            </div>
-            <span class="badge bg-label-danger">Bugün</span>
+          <div class="d-flex align-items-center justify-content-between mb-2">
+            <span class="fw-semibold">Bugün Çıkış</span>
+            <span class="badge bg-label-danger">-121</span>
           </div>
-          <span class="fw-semibold d-block mb-1">Çıkış</span>
-          <h3 class="card-title mb-0">121</h3>
-          <small class="text-body-secondary">Dummy veri</small>
+          <div class="d-flex align-items-center justify-content-between">
+            <small class="text-muted">Son 1 saat</small>
+            <small class="text-danger fw-semibold">-16</small>
+          </div>
         </div>
       </div>
     </div>
@@ -60,15 +85,14 @@
     <div class="col-xl-3 col-md-6">
       <div class="card h-100">
         <div class="card-body">
-          <div class="d-flex align-items-center justify-content-between mb-3">
-            <div class="avatar">
-              <span class="avatar-initial rounded bg-label-warning"><i class="bx bx-user-pin"></i></span>
-            </div>
-            <span class="badge bg-label-warning">Aktif</span>
+          <div class="d-flex align-items-center justify-content-between mb-2">
+            <span class="fw-semibold">İçeride</span>
+            <span class="badge bg-label-info">14</span>
           </div>
-          <span class="fw-semibold d-block mb-1">Ziyaretçi</span>
-          <h3 class="card-title mb-0">14</h3>
-          <small class="text-body-secondary">İçeride</small>
+          <div class="d-flex align-items-center justify-content-between">
+            <small class="text-muted">Ziyaretçi/Araç</small>
+            <small class="text-muted">Dummy</small>
+          </div>
         </div>
       </div>
     </div>
@@ -76,163 +100,149 @@
     <div class="col-xl-3 col-md-6">
       <div class="card h-100">
         <div class="card-body">
-          <div class="d-flex align-items-center justify-content-between mb-3">
-            <div class="avatar">
-              <span class="avatar-initial rounded bg-label-info"><i class="bx bx-qr-scan"></i></span>
-            </div>
-            <span class="badge bg-label-info">Bugün</span>
+          <div class="d-flex align-items-center justify-content-between mb-2">
+            <span class="fw-semibold">Kontrol</span>
+            <span class="badge bg-label-warning">2</span>
           </div>
-          <span class="fw-semibold d-block mb-1">Tesis Kontrol</span>
-          <h3 class="card-title mb-0">36</h3>
-          <small class="text-body-secondary">Kontrol sayısı</small>
+          <div class="d-flex align-items-center justify-content-between">
+            <small class="text-muted">Bekleyen doğrulama</small>
+            <small class="text-warning fw-semibold">1</small>
+          </div>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Grafik + Sağ Panel -->
+  <!-- MAIN GRID -->
   <div class="row g-4">
+    <!-- Zone cards -->
     <div class="col-12 col-xxl-8">
       <div class="card">
         <div class="card-header d-flex align-items-center justify-content-between">
           <div>
-            <h5 class="mb-0">Saatlik Yoğunluk</h5>
-            <small class="text-body-secondary">Giriş/çıkış yoğunluğu (dummy)</small>
-          </div>
-          <div class="d-flex gap-2">
-            <button class="btn btn-sm btn-outline-secondary" type="button">
-              <i class="bx bx-refresh me-1"></i> Yenile
-            </button>
-            <a class="btn btn-sm btn-outline-primary" href="javascript:void(0);" data-route="visits">
-              <i class="bx bx-log-in-circle me-1"></i> Liste
-            </a>
-          </div>
-        </div>
-        <div class="card-body">
-          <div id="secHourlyChart" style="height: 320px;"></div>
-        </div>
-      </div>
-    </div>
-
-    <div class="col-12 col-xxl-4">
-      <div class="card h-100">
-        <div class="card-header d-flex align-items-center justify-content-between">
-          <div>
-            <h5 class="mb-0">Hızlı Özet</h5>
-            <small class="text-body-secondary">Bugün</small>
+            <h5 class="mb-0">Zonlar</h5>
+            <small class="text-body-secondary">Kapı/otopark durumu ve yoğunluk</small>
           </div>
           <span class="badge bg-label-secondary">Live</span>
         </div>
 
         <div class="card-body">
-          <div id="secMiniSpark" style="height: 90px;"></div>
+          <div class="row g-3">
+            <!-- Zone card -->
+            <div class="col-md-6">
+              <div class="card border shadow-none mb-0">
+                <div class="card-body">
+                  <div class="d-flex align-items-start justify-content-between">
+                    <div>
+                      <div class="fw-semibold">A Kapısı</div>
+                      <small class="text-muted">Son olay: 09:18 • Ziyaretçi girişi</small>
+                    </div>
+                    <span class="badge bg-label-success">Aktif</span>
+                  </div>
 
-          <ul class="list-group list-group-flush mt-2">
-            <li class="list-group-item d-flex justify-content-between align-items-center px-0">
-              <span><i class="bx bx-user me-2 text-primary"></i>Toplam Kayıt</span>
-              <span class="fw-semibold">249</span>
-            </li>
-            <li class="list-group-item d-flex justify-content-between align-items-center px-0">
-              <span><i class="bx bx-time-five me-2 text-warning"></i>Ortalama Bekleme</span>
-              <span class="fw-semibold">3 dk</span>
-            </li>
-            <li class="list-group-item d-flex justify-content-between align-items-center px-0">
-              <span><i class="bx bx-shield-quarter me-2 text-success"></i>Uyarı</span>
-              <span class="fw-semibold">0</span>
-            </li>
-          </ul>
+                  <div class="d-flex gap-2 mt-3">
+                    <span class="badge bg-label-primary">Giriş: 86</span>
+                    <span class="badge bg-label-secondary">Çıkış: 79</span>
+                    <span class="badge bg-label-warning">Kontrol: 1</span>
+                  </div>
 
-          <div class="d-flex gap-2 mt-3">
-            <a href="javascript:void(0);" class="btn btn-outline-primary w-100" data-route="facilityCheckin">
-              <i class="bx bx-qr-scan me-1"></i> Tesis Kontrol
-            </a>
-            <a href="javascript:void(0);" class="btn btn-outline-secondary w-100" data-route="visits">
-              <i class="bx bx-list-ul me-1"></i> Tümü
-            </a>
-          </div>
+                  <div class="d-flex gap-2 mt-3">
+                    <button class="btn btn-sm btn-outline-primary" type="button">
+                      <i class="bx bx-qr-scan me-1"></i> QR
+                    </button>
+                    <button class="btn btn-sm btn-outline-secondary" type="button">
+                      <i class="bx bx-user-check me-1"></i> Onay (dummy)
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="card border shadow-none mb-0">
+                <div class="card-body">
+                  <div class="d-flex align-items-start justify-content-between">
+                    <div>
+                      <div class="fw-semibold">B Kapısı</div>
+                      <small class="text-muted">Son olay: 10:05 • Çıkış kaydı</small>
+                    </div>
+                    <span class="badge bg-label-success">Aktif</span>
+                  </div>
+
+                  <div class="d-flex gap-2 mt-3">
+                    <span class="badge bg-label-primary">Giriş: 57</span>
+                    <span class="badge bg-label-secondary">Çıkış: 54</span>
+                    <span class="badge bg-label-warning">Kontrol: 0</span>
+                  </div>
+
+                  <div class="d-flex gap-2 mt-3">
+                    <button class="btn btn-sm btn-outline-primary" type="button">
+                      <i class="bx bx-qr-scan me-1"></i> QR
+                    </button>
+                    <button class="btn btn-sm btn-outline-secondary" type="button">
+                      <i class="bx bx-user-check me-1"></i> Onay (dummy)
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-12">
+              <div class="card border shadow-none mb-0">
+                <div class="card-body">
+                  <div class="d-flex align-items-start justify-content-between">
+                    <div>
+                      <div class="fw-semibold">Otopark</div>
+                      <small class="text-muted">Son olay: 09:40 • Araç kontrol</small>
+                    </div>
+                    <span class="badge bg-label-warning">Kontrol</span>
+                  </div>
+
+                  <div class="d-flex gap-2 mt-3 flex-wrap">
+                    <span class="badge bg-label-danger">Araç: 35</span>
+                    <span class="badge bg-label-warning">Şüpheli: 1</span>
+                    <span class="badge bg-label-secondary">Kayıt: 12</span>
+                  </div>
+
+                  <div class="d-flex gap-2 mt-3">
+                    <button class="btn btn-sm btn-outline-warning" type="button">
+                      <i class="bx bx-car me-1"></i> Plaka Kontrol (dummy)
+                    </button>
+                    <a class="btn btn-sm btn-outline-secondary" href="javascript:void(0);" data-route="visits">
+                      <i class="bx bx-list-ul me-1"></i> Otopark Kayıtları
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div><!-- /row -->
         </div>
       </div>
     </div>
 
-    <!-- Son Kayıtlar -->
-    <div class="col-12">
-      <div class="card">
-        <div class="card-header d-flex align-items-center justify-content-between">
-          <div>
-            <h5 class="mb-0">Son Kayıtlar</h5>
-            <small class="text-body-secondary">En güncel giriş/çıkış kayıtları (dummy)</small>
-          </div>
-          <a href="javascript:void(0);" class="btn btn-sm btn-outline-secondary" data-route="visits">
-            <i class="bx bx-list-ul me-1"></i> Tümü
-          </a>
+    <!-- Right column: mini trend + quick actions -->
+    <div class="col-12 col-xxl-4">
+       <div class="card">
+        <div class="card-header">
+          <h5 class="mb-0">Hızlı Aksiyonlar</h5>
+          <small class="text-body-secondary">Sık kullanılan işlemler</small>
         </div>
-
         <div class="card-body">
-          <div class="table-responsive text-nowrap">
-            <table class="table align-middle">
-              <thead>
-                <tr>
-                  <th>Saat</th>
-                  <th>Kişi</th>
-                  <th>Tür</th>
-                  <th>Giriş Noktası</th>
-                  <th>Durum</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>09:12</td>
-                  <td>
-                    <div class="d-flex align-items-center">
-                      <div class="avatar avatar-xs me-2">
-                        <span class="avatar-initial rounded bg-label-primary">O</span>
-                      </div>
-                      <div class="fw-semibold">Oturum Sakini</div>
-                    </div>
-                  </td>
-                  <td><span class="badge bg-label-info">Sakin</span></td>
-                  <td>A Kapısı</td>
-                  <td><span class="badge bg-label-success">Giriş</span></td>
-                </tr>
-                <tr>
-                  <td>09:18</td>
-                  <td>
-                    <div class="d-flex align-items-center">
-                      <div class="avatar avatar-xs me-2">
-                        <span class="avatar-initial rounded bg-label-warning">Z</span>
-                      </div>
-                      <div class="fw-semibold">Ziyaretçi</div>
-                    </div>
-                  </td>
-                  <td><span class="badge bg-label-warning">Ziyaretçi</span></td>
-                  <td>A Kapısı</td>
-                  <td><span class="badge bg-label-success">Giriş</span></td>
-                </tr>
-                <tr>
-                  <td>09:40</td>
-                  <td>
-                    <div class="d-flex align-items-center">
-                      <div class="avatar avatar-xs me-2">
-                        <span class="avatar-initial rounded bg-label-danger">A</span>
-                      </div>
-                      <div class="fw-semibold">Araç</div>
-                    </div>
-                  </td>
-                  <td><span class="badge bg-label-danger">Araç</span></td>
-                  <td>Otopark</td>
-                  <td><span class="badge bg-label-secondary">Kontrol</span></td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-
-          <div class="alert alert-info mt-3 mb-0">
-            <i class="bx bx-info-circle me-1"></i>
-            Backend hazır olunca kayıtlar gerçek zamanlı gelecektir.
+          <div class="d-grid gap-2">
+            <a class="btn btn-outline-primary" href="javascript:void(0);" data-route="visits">
+              <i class="bx bx-log-in-circle me-1"></i> Yeni Kayıt
+            </a>
+            <a class="btn btn-outline-secondary" href="javascript:void(0);" data-route="facilityCheckin">
+              <i class="bx bx-qr-scan me-1"></i> Tesis Giriş Kontrol
+            </a>
+            <button class="btn btn-outline-warning" type="button">
+              <i class="bx bx-shield-quarter me-1"></i> Kontrol Listesi (dummy)
+            </button>
           </div>
         </div>
       </div>
     </div>
 
-  </div>
+  </div><!-- /row -->
 </div>

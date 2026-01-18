@@ -1,8 +1,164 @@
+<!-- partials/finance/ledger.html -->
 <div class="container-xxl flex-grow-1 container-p-y">
-  <div class="card">
-    <div class="card-body">
-      <h5 class="mb-1">[SAYFA ADI]</h5>
-      <p class="text-muted mb-0">Dummy verilerle hazırlanıyor. Backend gelince bağlanacak.</p>
+
+  <!-- Page header -->
+  <div class="row mb-4">
+    <div class="col-12 d-flex flex-wrap align-items-center justify-content-between gap-2">
+      <div>
+        <h4 class="fw-bold mb-1">Hesap Hareketleri</h4>
+        <p class="text-muted mb-0">Ödeme, iade, tahakkuk ve düzeltme kayıtları</p>
+      </div>
+
+      <div class="d-flex gap-2 flex-wrap">
+        <button type="button" class="btn btn-outline-secondary btn-sm" id="btnLedgerExport">
+          <i class="bx bx-download me-1"></i> Dışa Aktar
+        </button>
+        <button type="button" class="btn btn-primary btn-sm" id="btnLedgerNew">
+          <i class="bx bx-plus me-1"></i> Yeni Kayıt (dummy)
+        </button>
+      </div>
     </div>
   </div>
+
+  <!-- Filters -->
+  <div class="card mb-4">
+    <div class="card-body">
+      <div class="row g-3 align-items-end">
+        <div class="col-12 col-md-3">
+          <label class="form-label">Tarih Aralığı</label>
+          <select class="form-select" id="filterLedgerRange">
+            <option value="7" selected>Son 7 Gün</option>
+            <option value="30">Son 30 Gün</option>
+            <option value="90">Son 90 Gün</option>
+            <option value="all">Tümü</option>
+          </select>
+        </div>
+
+        <div class="col-12 col-md-3">
+          <label class="form-label">Tür</label>
+          <select class="form-select" id="filterLedgerType">
+            <option value="all" selected>Tümü</option>
+            <option value="payment">Ödeme</option>
+            <option value="due">Tahakkuk</option>
+            <option value="refund">İade</option>
+            <option value="adjustment">Düzeltme</option>
+          </select>
+        </div>
+
+        <div class="col-12 col-md-4">
+          <label class="form-label">Ara</label>
+          <input type="text" class="form-control" id="filterLedgerQuery" placeholder="Daire / Ad / Açıklama ara..." />
+        </div>
+
+        <div class="col-12 col-md-2 d-grid">
+          <button type="button" class="btn btn-outline-primary" id="btnLedgerApply">
+            <i class="bx bx-filter-alt me-1"></i> Uygula
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Summary cards -->
+  <div class="row g-4 mb-4">
+    <div class="col-xl-3 col-md-6">
+      <div class="card h-100">
+        <div class="card-body">
+          <div class="d-flex align-items-center justify-content-between mb-3">
+            <div class="avatar">
+              <span class="avatar-initial rounded bg-label-success"><i class="bx bx-trending-up"></i></span>
+            </div>
+            <span class="badge bg-label-success">+ Giriş</span>
+          </div>
+          <span class="fw-semibold d-block mb-1">Toplam Giriş</span>
+          <h4 class="card-title mb-0" id="sumIn">₺ 0</h4>
+          <small class="text-body-secondary">Dummy veri</small>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-xl-3 col-md-6">
+      <div class="card h-100">
+        <div class="card-body">
+          <div class="d-flex align-items-center justify-content-between mb-3">
+            <div class="avatar">
+              <span class="avatar-initial rounded bg-label-danger"><i class="bx bx-trending-down"></i></span>
+            </div>
+            <span class="badge bg-label-danger">- Çıkış</span>
+          </div>
+          <span class="fw-semibold d-block mb-1">Toplam Çıkış</span>
+          <h4 class="card-title mb-0" id="sumOut">₺ 0</h4>
+          <small class="text-body-secondary">Dummy veri</small>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-xl-3 col-md-6">
+      <div class="card h-100">
+        <div class="card-body">
+          <div class="d-flex align-items-center justify-content-between mb-3">
+            <div class="avatar">
+              <span class="avatar-initial rounded bg-label-primary"><i class="bx bx-transfer-alt"></i></span>
+            </div>
+            <span class="badge bg-label-primary">Net</span>
+          </div>
+          <span class="fw-semibold d-block mb-1">Net Bakiye</span>
+          <h4 class="card-title mb-0" id="sumNet">₺ 0</h4>
+          <small class="text-body-secondary">Dummy veri</small>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-xl-3 col-md-6">
+      <div class="card h-100">
+        <div class="card-body">
+          <div class="d-flex align-items-center justify-content-between mb-3">
+            <div class="avatar">
+              <span class="avatar-initial rounded bg-label-warning"><i class="bx bx-receipt"></i></span>
+            </div>
+            <span class="badge bg-label-warning">Kayıt</span>
+          </div>
+          <span class="fw-semibold d-block mb-1">İşlem Sayısı</span>
+          <h4 class="card-title mb-0" id="sumCount">0</h4>
+          <small class="text-body-secondary">Dummy veri</small>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Table -->
+  <div class="card">
+    <div class="card-header d-flex align-items-center justify-content-between">
+      <div>
+        <h5 class="mb-0">Ekstre</h5>
+        <small class="text-body-secondary">Filtreye göre liste (dummy)</small>
+      </div>
+      <span class="badge bg-label-secondary" id="ledgerCountBadge">0</span>
+    </div>
+
+    <div class="card-body">
+      <div class="table-responsive text-nowrap">
+        <table class="table align-middle">
+          <thead>
+            <tr>
+              <th>Tarih</th>
+              <th>Daire / Kişi</th>
+              <th>Tür</th>
+              <th>Açıklama</th>
+              <th class="text-end">Tutar</th>
+              <th>Durum</th>
+              <th class="text-end">İşlem</th>
+            </tr>
+          </thead>
+          <tbody id="ledgerTableBody"></tbody>
+        </table>
+      </div>
+
+      <div class="alert alert-info mt-3 mb-0">
+        <i class="bx bx-info-circle me-1"></i>
+        Backend gelince filtreler gerçek tarihe göre çalışacak ve export dosyası üretilecek.
+      </div>
+    </div>
+  </div>
+
 </div>

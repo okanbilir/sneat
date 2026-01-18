@@ -1,8 +1,173 @@
+<!-- partials/security/visits.html -->
 <div class="container-xxl flex-grow-1 container-p-y">
-  <div class="card">
-    <div class="card-body">
-      <h5 class="mb-1">[SAYFA ADI]</h5>
-      <p class="text-muted mb-0">Dummy verilerle hazırlanıyor. Backend gelince bağlanacak.</p>
+
+  <!-- Page header -->
+  <div class="row mb-4">
+    <div class="col-12 d-flex flex-wrap align-items-center justify-content-between gap-2">
+      <div>
+        <h4 class="fw-bold mb-1">Giriş / Çıkış</h4>
+        <p class="text-muted mb-0">Ziyaretçi, araç ve sakin kayıtları</p>
+      </div>
+
+      <div class="d-flex gap-2 flex-wrap">
+        <button type="button" class="btn btn-primary btn-sm" id="btnVisitNew">
+          <i class="bx bx-log-in-circle me-1"></i> Yeni Kayıt (dummy)
+        </button>
+        <button type="button" class="btn btn-outline-secondary btn-sm" id="btnVisitExport">
+          <i class="bx bx-download me-1"></i> Dışa Aktar
+        </button>
+      </div>
     </div>
   </div>
+
+  <!-- Filters -->
+  <div class="card mb-4">
+    <div class="card-body">
+      <div class="row g-3 align-items-end">
+        <div class="col-12 col-md-3">
+          <label class="form-label">Tarih</label>
+          <select class="form-select" id="filterVisitRange">
+            <option value="today" selected>Bugün</option>
+            <option value="7">Son 7 Gün</option>
+            <option value="30">Son 30 Gün</option>
+            <option value="all">Tümü</option>
+          </select>
+        </div>
+
+        <div class="col-12 col-md-3">
+          <label class="form-label">Tür</label>
+          <select class="form-select" id="filterVisitType">
+            <option value="all" selected>Tümü</option>
+            <option value="resident">Sakin</option>
+            <option value="visitor">Ziyaretçi</option>
+            <option value="vehicle">Araç</option>
+          </select>
+        </div>
+
+        <div class="col-12 col-md-2">
+          <label class="form-label">Durum</label>
+          <select class="form-select" id="filterVisitStatus">
+            <option value="all" selected>Tümü</option>
+            <option value="in">İçeride</option>
+            <option value="out">Çıkış yaptı</option>
+            <option value="hold">Kontrol</option>
+          </select>
+        </div>
+
+        <div class="col-12 col-md-3">
+          <label class="form-label">Ara</label>
+          <input type="text" class="form-control" id="filterVisitQuery" placeholder="İsim / Plaka / Kapı..." />
+        </div>
+
+        <div class="col-12 col-md-1 d-grid">
+          <button type="button" class="btn btn-outline-primary" id="btnVisitApply">
+            <i class="bx bx-filter-alt"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Summary -->
+  <div class="row g-4 mb-4">
+    <div class="col-xl-3 col-md-6">
+      <div class="card h-100">
+        <div class="card-body">
+          <div class="d-flex align-items-center justify-content-between mb-3">
+            <div class="avatar">
+              <span class="avatar-initial rounded bg-label-success"><i class="bx bx-log-in-circle"></i></span>
+            </div>
+            <span class="badge bg-label-success">Bugün</span>
+          </div>
+          <span class="fw-semibold d-block mb-1">Giriş</span>
+          <h4 class="card-title mb-0" id="sumVisitIn">0</h4>
+          <small class="text-body-secondary">Dummy veri</small>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-xl-3 col-md-6">
+      <div class="card h-100">
+        <div class="card-body">
+          <div class="d-flex align-items-center justify-content-between mb-3">
+            <div class="avatar">
+              <span class="avatar-initial rounded bg-label-danger"><i class="bx bx-log-out-circle"></i></span>
+            </div>
+            <span class="badge bg-label-danger">Bugün</span>
+          </div>
+          <span class="fw-semibold d-block mb-1">Çıkış</span>
+          <h4 class="card-title mb-0" id="sumVisitOut">0</h4>
+          <small class="text-body-secondary">Dummy veri</small>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-xl-3 col-md-6">
+      <div class="card h-100">
+        <div class="card-body">
+          <div class="d-flex align-items-center justify-content-between mb-3">
+            <div class="avatar">
+              <span class="avatar-initial rounded bg-label-warning"><i class="bx bx-shield-quarter"></i></span>
+            </div>
+            <span class="badge bg-label-warning">Aktif</span>
+          </div>
+          <span class="fw-semibold d-block mb-1">Kontrol</span>
+          <h4 class="card-title mb-0" id="sumVisitHold">0</h4>
+          <small class="text-body-secondary">Dummy veri</small>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-xl-3 col-md-6">
+      <div class="card h-100">
+        <div class="card-body">
+          <div class="d-flex align-items-center justify-content-between mb-3">
+            <div class="avatar">
+              <span class="avatar-initial rounded bg-label-primary"><i class="bx bx-list-ul"></i></span>
+            </div>
+            <span class="badge bg-label-primary">Toplam</span>
+          </div>
+          <span class="fw-semibold d-block mb-1">Kayıt</span>
+          <h4 class="card-title mb-0" id="sumVisitCount">0</h4>
+          <small class="text-body-secondary">Dummy veri</small>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Table -->
+  <div class="card">
+    <div class="card-header d-flex align-items-center justify-content-between">
+      <div>
+        <h5 class="mb-0">Kayıtlar</h5>
+        <small class="text-body-secondary">Filtreye göre listelenir (dummy)</small>
+      </div>
+      <span class="badge bg-label-secondary" id="visitCountBadge">0</span>
+    </div>
+
+    <div class="card-body">
+      <div class="table-responsive text-nowrap">
+        <table class="table align-middle">
+          <thead>
+            <tr>
+              <th>Tarih</th>
+              <th>Saat</th>
+              <th>Tür</th>
+              <th>Kişi / Plaka</th>
+              <th>Kapı</th>
+              <th>Durum</th>
+              <th class="text-end">İşlem</th>
+            </tr>
+          </thead>
+          <tbody id="visitTableBody"></tbody>
+        </table>
+      </div>
+
+      <div class="alert alert-info mt-3 mb-0">
+        <i class="bx bx-info-circle me-1"></i>
+        Backend gelince: QR, ziyaretçi onayı, plaka kontrol, otomatik “içeride” takibi eklenecek.
+      </div>
+    </div>
+  </div>
+
 </div>
