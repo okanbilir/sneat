@@ -151,24 +151,18 @@
       permissions: ['FACILITY_CHECKIN'],
       onLoad: () => window.initFacilityCheckin?.()
     },
-
+    
     forbidden: {
       title: 'Erisim Yok',
       partial: 'forbidden',
       roles: [
-        'admin',
-        'facility_manager',
-        'accountant',
-        'security',
-        'tenant',
-        'owner',
-        'trainer',
-        'staff_cleaning',
-        'staff_tech'
+        'admin','facility_manager','accountant','security',
+        'tenant','owner','trainer','staff_cleaning','staff_tech'
       ],
       permissions: [],
-      onLoad: null
-    }
+      onLoad: () => window.initForbidden?.()
+    },
+    
   };
 
   // ---------------- Router core ----------------

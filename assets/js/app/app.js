@@ -1,5 +1,4 @@
 // assets/js/app/app.js
-// SPA bootstrap (tek giris noktasi)
 (function () {
   'use strict';
 
@@ -9,6 +8,7 @@
     window.location.href = 'auth-login-basic.html';
     return;
   }
+  window.NavbarUser?.render?.();
 
   // Logout (navbar)
   function bindLogout() {

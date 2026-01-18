@@ -1,8 +1,164 @@
+<!-- partials/finance/debts.html -->
 <div class="container-xxl flex-grow-1 container-p-y">
-  <div class="card">
-    <div class="card-body">
-      <h5 class="mb-1">[SAYFA ADI]</h5>
-      <p class="text-muted mb-0">Dummy verilerle hazırlanıyor. Backend gelince bağlanacak.</p>
+
+  <!-- Header -->
+  <div class="row mb-4">
+    <div class="col-12 d-flex flex-wrap align-items-center justify-content-between gap-2">
+      <div>
+        <h4 class="fw-bold mb-1">Borç / Alacak</h4>
+        <p class="text-muted mb-0">Kişi bazlı bakiye, gecikme ve ödeme durumları</p>
+      </div>
+
+      <div class="d-flex gap-2 flex-wrap">
+        <button type="button" class="btn btn-outline-secondary btn-sm" id="btnDebtsExport">
+          <i class="bx bx-download me-1"></i> Dışa Aktar
+        </button>
+        <button type="button" class="btn btn-primary btn-sm" id="btnDebtsNew">
+          <i class="bx bx-plus me-1"></i> Yeni Kayıt (dummy)
+        </button>
+      </div>
     </div>
   </div>
+
+  <!-- Filters -->
+  <div class="card mb-4">
+    <div class="card-body">
+      <div class="row g-3 align-items-end">
+        <div class="col-12 col-md-3">
+          <label class="form-label">Görünüm</label>
+          <select class="form-select" id="filterDebtsView">
+            <option value="balance" selected>Bakiye</option>
+            <option value="late">Gecikenler</option>
+            <option value="credit">Alacaklılar</option>
+            <option value="debt">Borçlular</option>
+          </select>
+        </div>
+
+        <div class="col-12 col-md-3">
+          <label class="form-label">Durum</label>
+          <select class="form-select" id="filterDebtsStatus">
+            <option value="all" selected>Tümü</option>
+            <option value="ok">Normal</option>
+            <option value="late">Gecikmiş</option>
+            <option value="risk">Riskli</option>
+          </select>
+        </div>
+
+        <div class="col-12 col-md-4">
+          <label class="form-label">Ara</label>
+          <input type="text" class="form-control" id="filterDebtsQuery" placeholder="Daire / Ad Soyad ara..." />
+        </div>
+
+        <div class="col-12 col-md-2 d-grid">
+          <button type="button" class="btn btn-outline-primary" id="btnDebtsApply">
+            <i class="bx bx-filter-alt me-1"></i> Uygula
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Summary -->
+  <div class="row g-4 mb-4">
+    <div class="col-xl-3 col-md-6">
+      <div class="card h-100">
+        <div class="card-body">
+          <div class="d-flex align-items-center justify-content-between mb-3">
+            <div class="avatar">
+              <span class="avatar-initial rounded bg-label-danger"><i class="bx bx-transfer-alt"></i></span>
+            </div>
+            <span class="badge bg-label-danger">Borç</span>
+          </div>
+          <span class="fw-semibold d-block mb-1">Toplam Borç</span>
+          <h4 class="card-title mb-0" id="sumDebt">₺ 0</h4>
+          <small class="text-body-secondary">Dummy veri</small>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-xl-3 col-md-6">
+      <div class="card h-100">
+        <div class="card-body">
+          <div class="d-flex align-items-center justify-content-between mb-3">
+            <div class="avatar">
+              <span class="avatar-initial rounded bg-label-success"><i class="bx bx-trending-up"></i></span>
+            </div>
+            <span class="badge bg-label-success">Alacak</span>
+          </div>
+          <span class="fw-semibold d-block mb-1">Toplam Alacak</span>
+          <h4 class="card-title mb-0" id="sumCredit">₺ 0</h4>
+          <small class="text-body-secondary">Dummy veri</small>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-xl-3 col-md-6">
+      <div class="card h-100">
+        <div class="card-body">
+          <div class="d-flex align-items-center justify-content-between mb-3">
+            <div class="avatar">
+              <span class="avatar-initial rounded bg-label-warning"><i class="bx bx-time-five"></i></span>
+            </div>
+            <span class="badge bg-label-warning">Gecikme</span>
+          </div>
+          <span class="fw-semibold d-block mb-1">Geciken Toplam</span>
+          <h4 class="card-title mb-0" id="sumLate">₺ 0</h4>
+          <small class="text-body-secondary">Dummy veri</small>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-xl-3 col-md-6">
+      <div class="card h-100">
+        <div class="card-body">
+          <div class="d-flex align-items-center justify-content-between mb-3">
+            <div class="avatar">
+              <span class="avatar-initial rounded bg-label-primary"><i class="bx bx-user"></i></span>
+            </div>
+            <span class="badge bg-label-primary">Kişi</span>
+          </div>
+          <span class="fw-semibold d-block mb-1">Kayıt</span>
+          <h4 class="card-title mb-0" id="sumPeople">0</h4>
+          <small class="text-body-secondary">Dummy veri</small>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Table -->
+  <div class="card">
+    <div class="card-header d-flex align-items-center justify-content-between">
+      <div>
+        <h5 class="mb-0">Bakiye Listesi</h5>
+        <small class="text-body-secondary">Kişi bazlı toplam (dummy)</small>
+      </div>
+      <span class="badge bg-label-secondary" id="debtsCountBadge">0</span>
+    </div>
+
+    <div class="card-body">
+      <div class="table-responsive text-nowrap">
+        <table class="table align-middle">
+          <thead>
+            <tr>
+              <th>Daire</th>
+              <th>Kişi</th>
+              <th class="text-end">Borç</th>
+              <th class="text-end">Alacak</th>
+              <th class="text-end">Net</th>
+              <th>Durum</th>
+              <th>Gecikme</th>
+              <th class="text-end">İşlem</th>
+            </tr>
+          </thead>
+          <tbody id="debtsTableBody"></tbody>
+        </table>
+      </div>
+
+      <div class="alert alert-info mt-3 mb-0">
+        <i class="bx bx-info-circle me-1"></i>
+        Backend gelince kişi detayına girip “ödeme planı / taksit / dekont” akışları eklenecek.
+      </div>
+    </div>
+  </div>
+
 </div>

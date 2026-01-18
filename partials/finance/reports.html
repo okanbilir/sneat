@@ -1,8 +1,206 @@
+<!-- partials/finance/reports.html -->
 <div class="container-xxl flex-grow-1 container-p-y">
-  <div class="card">
-    <div class="card-body">
-      <h5 class="mb-1">[SAYFA ADI]</h5>
-      <p class="text-muted mb-0">Dummy verilerle hazırlanıyor. Backend gelince bağlanacak.</p>
+
+  <!-- Header -->
+  <div class="row mb-4">
+    <div class="col-12 d-flex flex-wrap align-items-center justify-content-between gap-2">
+      <div>
+        <h4 class="fw-bold mb-1">Raporlar</h4>
+        <p class="text-muted mb-0">Tahsilat, borç ve dönem bazlı özetler (dummy)</p>
+      </div>
+
+      <div class="d-flex gap-2 flex-wrap">
+        <button type="button" class="btn btn-outline-secondary btn-sm" id="btnReportsExport">
+          <i class="bx bx-download me-1"></i> Dışa Aktar
+        </button>
+        <button type="button" class="btn btn-primary btn-sm" id="btnReportsGenerate">
+          <i class="bx bx-refresh me-1"></i> Yenile (dummy)
+        </button>
+      </div>
     </div>
   </div>
+
+  <!-- Filters -->
+  <div class="card mb-4">
+    <div class="card-body">
+      <div class="row g-3 align-items-end">
+        <div class="col-12 col-md-3">
+          <label class="form-label">Dönem</label>
+          <select class="form-select" id="filterReportPeriod">
+            <option value="2026-01" selected>Ocak 2026</option>
+            <option value="2025-12">Aralık 2025</option>
+            <option value="2025-11">Kasım 2025</option>
+          </select>
+        </div>
+
+        <div class="col-12 col-md-3">
+          <label class="form-label">Rapor Türü</label>
+          <select class="form-select" id="filterReportType">
+            <option value="collection" selected>Tahsilat</option>
+            <option value="debt">Borç / Alacak</option>
+            <option value="ledger">Hareket Özeti</option>
+          </select>
+        </div>
+
+        <div class="col-12 col-md-4">
+          <label class="form-label">Not</label>
+          <input type="text" class="form-control" id="filterReportNote" placeholder="Rapor notu (dummy)..." />
+        </div>
+
+        <div class="col-12 col-md-2 d-grid">
+          <button type="button" class="btn btn-outline-primary" id="btnReportsApply">
+            <i class="bx bx-filter-alt me-1"></i> Uygula
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- KPI -->
+  <div class="row g-4 mb-4">
+    <div class="col-xl-3 col-md-6">
+      <div class="card h-100">
+        <div class="card-body">
+          <div class="d-flex align-items-center justify-content-between mb-3">
+            <div class="avatar">
+              <span class="avatar-initial rounded bg-label-success"><i class="bx bx-trending-up"></i></span>
+            </div>
+            <span class="badge bg-label-success">+ Tahsilat</span>
+          </div>
+          <span class="fw-semibold d-block mb-1">Toplam Tahsilat</span>
+          <h4 class="card-title mb-0" id="repKpiCollected">₺ 0</h4>
+          <small class="text-body-secondary">Dummy veri</small>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-xl-3 col-md-6">
+      <div class="card h-100">
+        <div class="card-body">
+          <div class="d-flex align-items-center justify-content-between mb-3">
+            <div class="avatar">
+              <span class="avatar-initial rounded bg-label-danger"><i class="bx bx-error-circle"></i></span>
+            </div>
+            <span class="badge bg-label-danger">Borç</span>
+          </div>
+          <span class="fw-semibold d-block mb-1">Toplam Borç</span>
+          <h4 class="card-title mb-0" id="repKpiDebt">₺ 0</h4>
+          <small class="text-body-secondary">Dummy veri</small>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-xl-3 col-md-6">
+      <div class="card h-100">
+        <div class="card-body">
+          <div class="d-flex align-items-center justify-content-between mb-3">
+            <div class="avatar">
+              <span class="avatar-initial rounded bg-label-warning"><i class="bx bx-time-five"></i></span>
+            </div>
+            <span class="badge bg-label-warning">Gecikme</span>
+          </div>
+          <span class="fw-semibold d-block mb-1">Geciken Tutar</span>
+          <h4 class="card-title mb-0" id="repKpiLate">₺ 0</h4>
+          <small class="text-body-secondary">Dummy veri</small>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-xl-3 col-md-6">
+      <div class="card h-100">
+        <div class="card-body">
+          <div class="d-flex align-items-center justify-content-between mb-3">
+            <div class="avatar">
+              <span class="avatar-initial rounded bg-label-primary"><i class="bx bx-list-ul"></i></span>
+            </div>
+            <span class="badge bg-label-primary">İşlem</span>
+          </div>
+          <span class="fw-semibold d-block mb-1">İşlem Sayısı</span>
+          <h4 class="card-title mb-0" id="repKpiCount">0</h4>
+          <small class="text-body-secondary">Dummy veri</small>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Charts row (placeholder) -->
+  <div class="row g-4 mb-4">
+    <div class="col-12 col-xxl-8">
+      <div class="card">
+        <div class="card-header d-flex align-items-center justify-content-between">
+          <div>
+            <h5 class="mb-0">Tahsilat Eğilimi</h5>
+            <small class="text-body-secondary">Aylık trend (dummy placeholder)</small>
+          </div>
+          <span class="badge bg-label-secondary">Apex hazır</span>
+        </div>
+        <div class="card-body">
+          <div id="reportsTrendChart" style="height: 320px;">
+            <div class="text-center">
+              <i class="bx bx-line-chart bx-lg text-primary mb-2"></i>
+              <div class="fw-semibold">Grafik Alanı</div>
+              <small class="text-muted">Backend & ApexCharts bağlanacak</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12 col-xxl-4">
+      <div class="card h-100">
+        <div class="card-header d-flex align-items-center justify-content-between">
+          <div>
+            <h5 class="mb-0">Dağılım</h5>
+            <small class="text-body-secondary">Borç/Alacak oranı (dummy)</small>
+          </div>
+          <i class="bx bx-pie-chart-alt-2"></i>
+        </div>
+
+        <div class="card-body">
+          <div id="reportsDonutChart" style="height: 320px;">
+            <div class="text-center">
+              <i class="bx bx-pie-chart-alt-2 bx-lg text-primary mb-2"></i>
+              <div class="fw-semibold">Grafik Alanı</div>
+              <small class="text-muted">Backend & ApexCharts bağlanacak</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Table -->
+  <div class="card">
+    <div class="card-header d-flex align-items-center justify-content-between">
+      <div>
+        <h5 class="mb-0">Özet Tablo</h5>
+        <small class="text-body-secondary">Dönem bazlı kırılım (dummy)</small>
+      </div>
+      <span class="badge bg-label-secondary" id="reportsCountBadge">0</span>
+    </div>
+
+    <div class="card-body">
+      <div class="table-responsive text-nowrap">
+        <table class="table align-middle">
+          <thead>
+            <tr>
+              <th>Dönem</th>
+              <th class="text-end">Tahsilat</th>
+              <th class="text-end">Borç</th>
+              <th class="text-end">Geciken</th>
+              <th class="text-end">İşlem</th>
+              <th class="text-end">İşlem</th>
+            </tr>
+          </thead>
+          <tbody id="reportsTableBody"></tbody>
+        </table>
+      </div>
+
+      <div class="alert alert-info mt-3 mb-0">
+        <i class="bx bx-info-circle me-1"></i>
+        Backend gelince “PDF rapor üretimi / mail gönderimi / otomatik zamanlanmış rapor” eklenebilir.
+      </div>
+    </div>
+  </div>
+
 </div>
