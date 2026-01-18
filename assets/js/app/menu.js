@@ -1,6 +1,4 @@
 // assets/js/app/menu.js
-// Dikkat: Sneat'in vendor "menu.js" dosyasi globalde "Menu" sinifi tanimlar.
-// Burada isim cakismasi olmamasi icin kendi yoneticimizi AppMenu yaptik.
 (function () {
   'use strict';
 
@@ -80,7 +78,7 @@
     host.innerHTML = html;
 
     // role/permission filtreleri sadece menu alaninda
-    window.Guards.run(host);
+      window.Guards.run(host);
 
     // Sneat init (vendor menu + main) menu geldikten sonra
     await initSneatAfterMenu();

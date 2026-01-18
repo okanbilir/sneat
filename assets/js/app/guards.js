@@ -1,64 +1,63 @@
 // assets/js/app/guards.js
-// assets/js/app/guards.js
-
-window.hasPermission = function (permission) {
-  try {
-    const user = JSON.parse(localStorage.getItem('user') || '{}');
-    const role = user.role || localStorage.getItem('role') || 'tenant';
-    const rolePerms = (window.PERMS && window.PERMS[role]) ? window.PERMS[role] : [];
-    return rolePerms.includes(permission);
-  } catch (e) {
-    return false;
-  }
-};
-
 (function () {
   'use strict';
 
+  function normalizeRole(role) {
+    if (!role) return role;
+    if (role === 'resident') return 'tenant';
+    if (role === 'staff_technical') return 'staff_tech';
+    return role;
+  }
+
   function splitRoles(value) {
     if (!value) return [];
-    return value
-      .split(/[,|\s]+/)
+    return String(value)
+      .split(/[,\s|]+/g)
       .map(s => s.trim())
       .filter(Boolean);
   }
 
-  // root: guard uygulanacak DOM parcası (default: document)
+  // Global helper
+  window.hasPermission = function (permission) {
+    try {
+      const user = window.Auth?.getUser?.() || JSON.parse(localStorage.getItem('user') || 'null');
+      const perms = user?.permissions || [];
+      return perms.includes('*') || perms.includes(permission);
+    } catch (_) {
+      return false;
+    }
+  };
+
   function runPageGuards(root = document, user = null) {
-    user = user || window.Auth?.getUser?.();
+    user = user || window.Auth?.getUser?.() || JSON.parse(localStorage.getItem('user') || 'null');
     if (!user) return;
 
-    const effectiveRole = user.role === 'resident' ? 'tenant' : user.role;
+    const effectiveRole = normalizeRole(user.role);
+    const perms = Array.isArray(user.permissions) ? user.permissions : [];
 
-    // Role
+    // Role guard
     root.querySelectorAll('[data-role]').forEach(el => {
       const targets = splitRoles(el.dataset.role);
       if (!targets.length) return;
 
-      // tenant/resident uyumlulugu
-      const roleMatches = targets.some(t => {
-        if (t === 'resident' && effectiveRole === 'tenant') return true;
-        if (t === 'tenant' && user.role === 'resident') return true;
-        return t === effectiveRole;
-      });
-
+      const roleMatches = targets.some(t => normalizeRole(t) === effectiveRole);
       if (!roleMatches) el.remove();
     });
 
-    // Permission
+    // Permission guard
     root.querySelectorAll('[data-permission]').forEach(el => {
       const p = el.dataset.permission;
-      const perms = user.permissions || [];
-      const ok = perms.includes('*') || (p && perms.includes(p));
-      if (p && !ok) el.remove();
+      if (!p) return;
+      const ok = perms.includes('*') || perms.includes(p);
+      if (!ok) el.remove();
     });
 
-    // Plan
+    // Plan guard
     root.querySelectorAll('[data-plan]').forEach(el => {
       const plan = el.dataset.plan;
       if (plan && user.plan !== plan) el.remove();
     });
   }
 
-  window.Guards = { run: runPageGuards };
+  window.Guards = { run: runPageGuards, normalizeRole };
 })();

@@ -27,22 +27,34 @@
 
     <link rel="stylesheet" href="assets/vendor/fonts/iconify-icons.css" />
 
+    <!-- Core CSS -->
+    <!-- build:css assets/vendor/css/theme.css  -->
+
     <link rel="stylesheet" href="assets/vendor/css/core.css" />
     <link rel="stylesheet" href="assets/css/demo.css" />
 
     <!-- Vendors CSS -->
+
     <link rel="stylesheet" href="assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
 
     <!-- endbuild -->
+
+    <!-- Page CSS -->
+    <!-- Page -->
     <link rel="stylesheet" href="assets/vendor/css/pages/page-auth.css" />
 
     <!-- Helpers -->
     <script src="assets/vendor/js/helpers.js"></script>
+    <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
+
+    <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
+
     <script src="assets/js/config.js"></script>
   </head>
 
   <body>
     <!-- Content -->
+
     <div class="container-xxl">
       <div class="authentication-wrapper authentication-basic container-p-y">
         <div class="authentication-inner">
@@ -154,15 +166,32 @@
     </div>
 
     <!-- / Content -->
+
+  
+
+    <!-- Core JS -->
+
     <script src="assets/vendor/libs/jquery/jquery.js"></script>
+
     <script src="assets/vendor/libs/popper/popper.js"></script>
     <script src="assets/vendor/js/bootstrap.js"></script>
+
     <script src="assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
 
     <script src="assets/vendor/js/menu.js"></script>
+
+    <!-- endbuild -->
+
+    <!-- Vendors JS -->
+
+    <!-- Main JS -->
+
     <script src="assets/js/main.js"></script>
+
+    <!-- Page JS -->
+
+    <!-- Place this tag before closing body tag for github widget button. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
-    
     <script>
       document.getElementById('formAuthentication').addEventListener('submit', async function (e) {
         e.preventDefault();
@@ -178,7 +207,6 @@
         try {
           // BACKEND HAZIR DEGIL -> MOCK (demo hesaplar)
           const DEMO = {
-
             'admin@': {
               name: 'Admin',
               role: 'admin',
@@ -186,29 +214,16 @@
               permissions: ['*']
             },
 
-            'accountant@': {
-              name: 'Muhasebe',
-              role: 'accountant',
-              plan: 'pro',
-              permissions: [
-                'DUES_VIEW',
-                'DUES_MANAGE',
-                'LEDGER_VIEW',
-                'DEBT_VIEW',
-                'REPORTS_VIEW'
-              ]
-            },
-
             'resident@': {
               name: 'Kiracı',
-              role: 'resident',
+              role: 'resident', // router/guards normalize -> tenant
               plan: 'standard',
               permissions: [
-                'DUES_VIEW',
+                'DUES_VIEW', 'DUES_PAY',
                 'LEDGER_VIEW',
                 'DEBT_VIEW',
-                'FACILITY_VIEW',
-                'FACILITY_BOOK'
+                'ANNOUNCEMENT_VIEW',
+                'FACILITY_VIEW', 'FACILITY_BOOK'
               ]
             },
 
@@ -217,11 +232,26 @@
               role: 'owner',
               plan: 'standard',
               permissions: [
-                'DUES_VIEW',
+                'DUES_VIEW', 'DUES_PAY',
                 'LEDGER_VIEW',
                 'DEBT_VIEW',
                 'REPORTS_VIEW',
+                'ANNOUNCEMENT_VIEW',
                 'FACILITY_VIEW'
+              ]
+            },
+
+            'accountant@': {
+              name: 'Muhasebe',
+              role: 'accountant',
+              plan: 'pro',
+              permissions: [
+                'DUES_VIEW',
+                'LEDGER_VIEW', 'LEDGER_MANAGE',
+                'DEBT_VIEW', 'DEBT_MANAGE',
+                'REPORTS_VIEW', 'REPORTS_MANAGE',
+                'ANNOUNCEMENT_VIEW',
+                'USER_VIEW'
               ]
             },
 
@@ -230,18 +260,20 @@
               role: 'security',
               plan: 'standard',
               permissions: [
-                'VISITS_VIEW',
-                'FACILITY_CHECKIN'
+                'VISITS_VIEW', 'VISITS_MANAGE',
+                'FACILITY_CHECKIN',
+                'ANNOUNCEMENT_VIEW'
               ]
             },
 
             'facility@': {
-              name: 'Sosyal Alan Yöneticisi',
+              name: 'Operasyon',
               role: 'facility_manager',
               plan: 'pro',
               permissions: [
-                'FACILITY_VIEW',
-                'FACILITY_MANAGE'
+                'FACILITY_VIEW', 'FACILITY_MANAGE',
+                'ANNOUNCEMENT_VIEW', 'ANNOUNCEMENT_MANAGE',
+                'VISITS_VIEW'
               ]
             },
 
@@ -249,23 +281,21 @@
               name: 'Eğitmen',
               role: 'trainer',
               plan: 'standard',
-              permissions: [
-                'FACILITY_VIEW'
-              ]
+              permissions: ['FACILITY_VIEW']
             },
 
             'cleaning@': {
               name: 'Temizlik',
               role: 'staff_cleaning',
               plan: 'standard',
-              permissions: []
+              permissions: ['MAINTENANCE_VIEW']
             },
 
             'technical@': {
               name: 'Teknik',
               role: 'staff_tech',
               plan: 'standard',
-              permissions: []
+              permissions: ['MAINTENANCE_VIEW', 'MAINTENANCE_MANAGE']
             }
           };
 
@@ -278,9 +308,11 @@
             throw new Error('Hatalı bilgiler');
           }
 
+          // token + user yaz
           localStorage.setItem('token', 'jwt-token');
           localStorage.setItem('user', JSON.stringify(demoUser));
 
+          // yönlen
           window.location.href = 'index.html';
         } catch (err) {
           alert(err.message || 'Giriş başarısız');
