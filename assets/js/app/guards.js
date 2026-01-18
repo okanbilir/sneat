@@ -2,6 +2,14 @@
 (function () {
   'use strict';
 
+  function splitRoles(value) {
+    if (!value) return [];
+    return value
+      .split(/[,|\s]+/)
+      .map(s => s.trim())
+      .filter(Boolean);
+  }
+
   // root: guard uygulanacak DOM parcası (default: document)
   function runPageGuards(root = document, user = null) {
     user = user || window.Auth?.getUser?.();
@@ -11,17 +19,25 @@
 
     // Role
     root.querySelectorAll('[data-role]').forEach(el => {
-      const target = el.dataset.role;
+      const targets = splitRoles(el.dataset.role);
+      if (!targets.length) return;
+
       // tenant/resident uyumlulugu
-      if (target === 'resident' && effectiveRole === 'tenant') return;
-      if (target === 'tenant' && user.role === 'resident') return;
-      if (target !== effectiveRole) el.remove();
+      const roleMatches = targets.some(t => {
+        if (t === 'resident' && effectiveRole === 'tenant') return true;
+        if (t === 'tenant' && user.role === 'resident') return true;
+        return t === effectiveRole;
+      });
+
+      if (!roleMatches) el.remove();
     });
 
     // Permission
     root.querySelectorAll('[data-permission]').forEach(el => {
       const p = el.dataset.permission;
-      if (p && !user.permissions?.includes(p)) el.remove();
+      const perms = user.permissions || [];
+      const ok = perms.includes('*') || (p && perms.includes(p));
+      if (p && !ok) el.remove();
     });
 
     // Plan

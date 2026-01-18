@@ -8,6 +8,7 @@
   function normalizeRole(role) {
     if (!role) return role;
     if (role === 'resident') return 'tenant';
+    if (role === 'staff_technical') return 'staff_tech';
     return role;
   }
 
@@ -21,8 +22,9 @@
       trainer: 'dashboards/trainer',
       owner: 'dashboards/owner',
       tenant: 'dashboards/tenant',
-      staff_cleaning: 'dashboards/staff_cleaning',
-      staff_tech: 'dashboards/staff_tech'
+      // dosya adlari kebab-case
+      staff_cleaning: 'dashboards/staff-cleaning',
+      staff_tech: 'dashboards/staff-tech'
     };
     return map[r] || 'dashboards/tenant';
   }
@@ -180,7 +182,8 @@
 
       // permission kontrol (opsiyonel)
       if (route.permissions?.length) {
-        const ok = route.permissions.every(p => user.permissions?.includes(p));
+        const perms = user.permissions || [];
+        const ok = perms.includes('*') || route.permissions.every(p => perms.includes(p));
         if (!ok) {
           this.pendingOnLoad = null;
           return this.loadPage('forbidden');

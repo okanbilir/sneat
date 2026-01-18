@@ -30,8 +30,8 @@
       return;
     }
 
-    await loadScriptOnce('sneat-vendor-menu', '../assets/vendor/js/menu.js');
-    await loadScriptOnce('sneat-main', '../assets/js/main.js');
+    await loadScriptOnce('sneat-vendor-menu', 'assets/vendor/js/menu.js');
+    await loadScriptOnce('sneat-main', 'assets/js/main.js');
 
     sneatInitDone = true;
   }
