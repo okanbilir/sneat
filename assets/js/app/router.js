@@ -147,11 +147,11 @@
           // route'a ozel JS
           if (typeof this.pendingOnLoad === 'function') {
             setTimeout(() => {
-              this.pendingOnLoad();
+            this.pendingOnLoad && this.pendingOnLoad();
               window.dispatchEvent(new Event('resize'));
             }, 50);
           }
-          this.pendingOnLoad = null;
+          window.__pendingOnLoad = null;
         })
         .catch(err => {
           console.error('Partial yuklenemedi:', err);
