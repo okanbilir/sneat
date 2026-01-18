@@ -25,7 +25,6 @@
     const el = document.getElementById(id);
     if (el) el.innerText = value;
   }
-
   // --- Admin dashboard grafik/stat ---
   function initAdminDashboard() {
     // Statik (Dummy) Veriler
@@ -69,7 +68,6 @@
       window.__charts.dashboardPieChart.render();
     }
   }
-
   // --- Accountant dashboard grafik ---
   function initAccountantDashboard() {
     // Tahsilat Trend (Line)
@@ -105,7 +103,6 @@
       window.__charts.acctMiniSpark.render();
     }
   }
-
   // --- Security dashboard grafik/stat ---
   function initSecurityDashboard() {
     // Saatlik yoğunluk (bar)
@@ -143,5 +140,7 @@
     // Hangi dashboard açık ise, sadece onu init et
     if (role === 'admin') initAdminDashboard();
     if (role === 'accountant') initAccountantDashboard();
+    if (role === 'security') initSecurityDashboard();
+
   };
 })();

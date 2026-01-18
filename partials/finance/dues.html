@@ -1,8 +1,158 @@
+<!-- partials/finance/dues.html -->
 <div class="container-xxl flex-grow-1 container-p-y">
-  <div class="card">
-    <div class="card-body">
-      <h5 class="mb-1">[SAYFA ADI]</h5>
-      <p class="text-muted mb-0">Dummy verilerle hazırlanıyor. Backend gelince bağlanacak.</p>
+
+  <!-- Page header -->
+  <div class="row mb-4">
+    <div class="col-12 d-flex flex-wrap align-items-center justify-content-between gap-2">
+      <div>
+        <h4 class="fw-bold mb-1">Aidat</h4>
+        <p class="text-muted mb-0">Tahakkuk, ödeme durumu ve gecikmeler</p>
+      </div>
+
+      <div class="d-flex gap-2 flex-wrap">
+        <button type="button" class="btn btn-primary btn-sm" id="btnDuesCreate">
+          <i class="bx bx-plus me-1"></i> Aidat Oluştur (dummy)
+        </button>
+        <button type="button" class="btn btn-outline-secondary btn-sm" id="btnDuesExport">
+          <i class="bx bx-download me-1"></i> Dışa Aktar
+        </button>
+      </div>
     </div>
   </div>
+
+  <!-- Filters -->
+  <div class="card mb-4">
+    <div class="card-body">
+      <div class="row g-3 align-items-end">
+        <div class="col-12 col-md-3">
+          <label class="form-label">Dönem</label>
+          <select class="form-select" id="filterPeriod">
+            <option value="2026-01" selected>Ocak 2026</option>
+            <option value="2025-12">Aralık 2025</option>
+            <option value="2025-11">Kasım 2025</option>
+          </select>
+        </div>
+
+        <div class="col-12 col-md-3">
+          <label class="form-label">Durum</label>
+          <select class="form-select" id="filterStatus">
+            <option value="all" selected>Tümü</option>
+            <option value="paid">Ödendi</option>
+            <option value="unpaid">Ödenmedi</option>
+            <option value="late">Gecikmiş</option>
+          </select>
+        </div>
+
+        <div class="col-12 col-md-4">
+          <label class="form-label">Ara</label>
+          <input type="text" class="form-control" id="filterQuery" placeholder="Daire / Ad Soyad ara..." />
+        </div>
+
+        <div class="col-12 col-md-2 d-grid">
+          <button type="button" class="btn btn-outline-primary" id="btnDuesApply">
+            <i class="bx bx-filter-alt me-1"></i> Uygula
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Summary + Table -->
+  <div class="row g-4">
+    <!-- Main table -->
+    <div class="col-12 col-xxl-8">
+      <div class="card">
+        <div class="card-header d-flex align-items-center justify-content-between">
+          <div>
+            <h5 class="mb-0">Aidat Listesi</h5>
+            <small class="text-body-secondary">Seçili dönem için kayıtlar (dummy)</small>
+          </div>
+          <span class="badge bg-label-secondary" id="duesCountBadge">0</span>
+        </div>
+
+        <div class="card-body">
+          <div class="table-responsive text-nowrap">
+            <table class="table align-middle">
+              <thead>
+                <tr>
+                  <th>Daire</th>
+                  <th>Ad Soyad</th>
+                  <th>Tutar</th>
+                  <th>Son Ödeme</th>
+                  <th>Durum</th>
+                  <th class="text-end">İşlem</th>
+                </tr>
+              </thead>
+              <tbody id="duesTableBody">
+                <!-- JS dolduracak -->
+              </tbody>
+            </table>
+          </div>
+
+          <div class="alert alert-info mt-3 mb-0">
+            <i class="bx bx-info-circle me-1"></i>
+            Backend gelince: tahakkuk oluşturma, ödeme girme, dekont ve otomatik gecikme hesaplama aktif olacak.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right panel -->
+    <div class="col-12 col-xxl-4">
+      <div class="card mb-4">
+        <div class="card-header">
+          <h5 class="mb-0">Özet</h5>
+          <small class="text-body-secondary">Seçili dönem</small>
+        </div>
+        <div class="card-body">
+          <div class="d-flex align-items-center justify-content-between mb-3">
+            <span><i class="bx bx-wallet me-2 text-primary"></i>Toplam Tahakkuk</span>
+            <span class="fw-semibold" id="sumTotal">₺ 0</span>
+          </div>
+          <div class="d-flex align-items-center justify-content-between mb-3">
+            <span><i class="bx bx-check-circle me-2 text-success"></i>Ödenen</span>
+            <span class="fw-semibold" id="sumPaid">₺ 0</span>
+          </div>
+          <div class="d-flex align-items-center justify-content-between mb-3">
+            <span><i class="bx bx-error-circle me-2 text-danger"></i>Ödenmeyen</span>
+            <span class="fw-semibold" id="sumUnpaid">₺ 0</span>
+          </div>
+          <div class="d-flex align-items-center justify-content-between">
+            <span><i class="bx bx-time-five me-2 text-warning"></i>Geciken</span>
+            <span class="fw-semibold" id="sumLate">₺ 0</span>
+          </div>
+
+          <hr class="my-3" />
+
+          <div class="d-grid gap-2">
+            <button type="button" class="btn btn-outline-primary" id="btnMarkPaid">
+              <i class="bx bx-check me-1"></i> Seçiliyi Ödendi Yap (dummy)
+            </button>
+            <button type="button" class="btn btn-outline-secondary" id="btnSendReminder">
+              <i class="bx bx-bell me-1"></i> Hatırlatma Gönder (dummy)
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header d-flex align-items-center justify-content-between">
+          <div>
+            <h5 class="mb-0">Hızlı Not</h5>
+            <small class="text-body-secondary">Muhasebe notu (dummy)</small>
+          </div>
+          <i class="bx bx-note"></i>
+        </div>
+        <div class="card-body">
+          <textarea class="form-control" rows="5" placeholder="Örn: Ocak tahakkukları 5’inde kesilecek..."></textarea>
+          <div class="d-grid mt-2">
+            <button class="btn btn-primary" type="button">
+              <i class="bx bx-save me-1"></i> Kaydet (dummy)
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
 </div>
