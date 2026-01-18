@@ -1,6 +1,4 @@
 // assets/js/app/router.js
-// 1) Route tanimlari (window.ROUTES)
-// 2) Minimal SPA router (window.Router)
 (function () {
   'use strict';
 
@@ -10,6 +8,14 @@
     if (role === 'resident') return 'tenant';
     if (role === 'staff_technical') return 'staff_tech';
     return role;
+  }
+
+  // --- Permission helper ---
+  function hasAllPermissions(user, required = []) {
+    if (!required || !required.length) return true;
+    const perms = user?.permissions || [];
+    if (perms.includes('*')) return true;
+    return required.every(p => perms.includes(p));
   }
 
   function dashboardPartialFor(user) {
@@ -47,10 +53,48 @@
       ],
       permissions: [],
       onLoad: () => {
-        // Dashboard chart'lari
         window.initDashboard?.();
         window.dispatchEvent(new Event('resize'));
       }
+    },
+
+    // --- Finans / Aidat ---
+    dues: {
+      title: 'Aidat',
+      partial: 'finance/dues',
+      roles: ['tenant', 'owner', 'admin', 'accountant'],
+      permissions: ['DUES_VIEW'],
+      onLoad: () => window.initDues?.()
+    },
+    ledger: {
+      title: 'Hesap Hareketleri',
+      partial: 'finance/ledger',
+      roles: ['tenant', 'owner', 'admin', 'accountant'],
+      permissions: ['LEDGER_VIEW'],
+      onLoad: () => window.initLedger?.()
+    },
+    debts: {
+      title: 'Borç / Alacak',
+      partial: 'finance/debts',
+      roles: ['tenant', 'owner', 'admin', 'accountant'],
+      permissions: ['DEBT_VIEW'],
+      onLoad: () => window.initDebts?.()
+    },
+    reports: {
+      title: 'Raporlar',
+      partial: 'finance/reports',
+      roles: ['owner', 'admin', 'accountant'],
+      permissions: ['REPORTS_VIEW'],
+      onLoad: () => window.initReports?.()
+    },
+
+    // --- Güvenlik (genel) ---
+    visits: {
+      title: 'Giriş / Çıkış',
+      partial: 'security/visits',
+      roles: ['security', 'admin'],
+      permissions: ['VISITS_VIEW'],
+      onLoad: () => window.initVisits?.()
     },
 
     // --- Sosyal Alanlar ---
@@ -133,6 +177,7 @@
 
     loadPage(partialPath) {
       const url = `partials/${partialPath}.html`;
+
       return fetch(url)
         .then(res => {
           if (!res.ok) throw new Error(`${url} -> ${res.status}`);
@@ -141,22 +186,34 @@
         .then(html => {
           const container = document.getElementById('content-area');
           if (!container) throw new Error('#content-area bulunamadi');
+
           container.innerHTML = html;
 
-          // Guard filtreleri
+          // Guard filtreleri (menu/button vb data-permission/data-role)
           window.Guards.run(container, window.Auth.getUser());
 
           // route'a ozel JS
-          if (typeof this.pendingOnLoad === 'function') {
+          const fn = this.pendingOnLoad;
+          this.pendingOnLoad = null;
+
+          if (typeof fn === 'function') {
             setTimeout(() => {
-            this.pendingOnLoad && this.pendingOnLoad();
-              window.dispatchEvent(new Event('resize'));
+              try {
+                fn();
+              } finally {
+                window.dispatchEvent(new Event('resize'));
+              }
             }, 50);
           }
-          window.__pendingOnLoad = null;
         })
         .catch(err => {
           console.error('Partial yuklenemedi:', err);
+          // Partial patlarsa da forbidden'a dusmek daha iyi
+          // (sonsuz loop olmasin diye kontrol)
+          if (partialPath !== 'forbidden') {
+            this.pendingOnLoad = null;
+            return this.loadPage('forbidden');
+          }
         });
     },
 
@@ -169,25 +226,29 @@
 
       const role = normalizeRole(user.role);
       const route = window.ROUTES?.[routeName];
+
       if (!route) {
+        // route yoksa forbidden
+        document.title = 'Erisim Yok';
         this.pendingOnLoad = null;
+        window.AppMenu?.setActive?.('forbidden');
         return this.loadPage('forbidden');
       }
 
       // role kontrol
       if (route.roles && !route.roles.includes(role)) {
+        document.title = 'Erisim Yok';
         this.pendingOnLoad = null;
+        window.AppMenu?.setActive?.('forbidden');
         return this.loadPage('forbidden');
       }
 
-      // permission kontrol (opsiyonel)
-      if (route.permissions?.length) {
-        const perms = user.permissions || [];
-        const ok = perms.includes('*') || route.permissions.every(p => perms.includes(p));
-        if (!ok) {
-          this.pendingOnLoad = null;
-          return this.loadPage('forbidden');
-        }
+      // permission kontrol
+      if (!hasAllPermissions(user, route.permissions || [])) {
+        document.title = 'Erisim Yok';
+        this.pendingOnLoad = null;
+        window.AppMenu?.setActive?.('forbidden');
+        return this.loadPage('forbidden');
       }
 
       document.title = route.title || 'Admin';
