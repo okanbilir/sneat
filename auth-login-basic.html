@@ -14,7 +14,6 @@
     <title>Kentra Login</title>
 
     <meta name="description" content="" />
-
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="assets/img/favicon/favicon.ico" />
 
@@ -26,35 +25,20 @@
       rel="stylesheet" />
 
     <link rel="stylesheet" href="assets/vendor/fonts/iconify-icons.css" />
-
-    <!-- Core CSS -->
-    <!-- build:css assets/vendor/css/theme.css  -->
-
     <link rel="stylesheet" href="assets/vendor/css/core.css" />
     <link rel="stylesheet" href="assets/css/demo.css" />
 
     <!-- Vendors CSS -->
-
     <link rel="stylesheet" href="assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
-
-    <!-- endbuild -->
-
-    <!-- Page CSS -->
-    <!-- Page -->
-    <link rel="stylesheet" href="assets/vendor/css/pages/page-auth.css" />
+   <link rel="stylesheet" href="assets/vendor/css/pages/page-auth.css" />
 
     <!-- Helpers -->
     <script src="assets/vendor/js/helpers.js"></script>
-    <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
-
-    <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
-
-    <script src="assets/js/config.js"></script>
+     <script src="assets/js/config.js"></script>
   </head>
 
   <body>
     <!-- Content -->
-
     <div class="container-xxl">
       <div class="authentication-wrapper authentication-basic container-p-y">
         <div class="authentication-inner">
@@ -166,31 +150,15 @@
     </div>
 
     <!-- / Content -->
-
-  
-
-    <!-- Core JS -->
-
     <script src="assets/vendor/libs/jquery/jquery.js"></script>
-
     <script src="assets/vendor/libs/popper/popper.js"></script>
     <script src="assets/vendor/js/bootstrap.js"></script>
-
     <script src="assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
 
     <script src="assets/vendor/js/menu.js"></script>
-
-    <!-- endbuild -->
-
-    <!-- Vendors JS -->
-
-    <!-- Main JS -->
-
     <script src="assets/js/main.js"></script>
 
     <!-- Page JS -->
-
-    <!-- Place this tag before closing body tag for github widget button. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <script>
       document.getElementById('formAuthentication').addEventListener('submit', async function (e) {
@@ -219,11 +187,11 @@
               role: 'resident', // router/guards normalize -> tenant
               plan: 'standard',
               permissions: [
-                'DUES_VIEW', 'DUES_PAY',
-                'LEDGER_VIEW',
-                'DEBT_VIEW',
+                'DUES_SELF_VIEW','DUES_PAY',
+                'LEDGER_SELF_VIEW',
+                'DEBT_SELF_VIEW',
                 'ANNOUNCEMENT_VIEW',
-                'FACILITY_VIEW', 'FACILITY_BOOK'
+                'FACILITY_VIEW','FACILITY_BOOK'
               ]
             },
 
@@ -232,10 +200,10 @@
               role: 'owner',
               plan: 'standard',
               permissions: [
-                'DUES_VIEW', 'DUES_PAY',
-                'LEDGER_VIEW',
-                'DEBT_VIEW',
-                'REPORTS_VIEW',
+                'DUES_SELF_VIEW','DUES_PAY',
+                'LEDGER_SELF_VIEW',
+                'DEBT_SELF_VIEW',
+                'REPORTS_SELF_VIEW',
                 'ANNOUNCEMENT_VIEW',
                 'FACILITY_VIEW'
               ]
@@ -246,10 +214,10 @@
               role: 'accountant',
               plan: 'pro',
               permissions: [
-                'DUES_VIEW',
-                'LEDGER_VIEW', 'LEDGER_MANAGE',
-                'DEBT_VIEW', 'DEBT_MANAGE',
-                'REPORTS_VIEW', 'REPORTS_MANAGE',
+                'DUES_SITE_VIEW','DUES_MANAGE',
+                'LEDGER_SITE_VIEW','LEDGER_MANAGE',
+                'DEBT_SITE_VIEW','DEBT_MANAGE',
+                'REPORTS_SITE_VIEW','REPORTS_MANAGE',
                 'ANNOUNCEMENT_VIEW',
                 'USER_VIEW'
               ]
