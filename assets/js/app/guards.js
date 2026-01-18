@@ -1,4 +1,17 @@
 // assets/js/app/guards.js
+// assets/js/app/guards.js
+
+window.hasPermission = function (permission) {
+  try {
+    const user = JSON.parse(localStorage.getItem('user') || '{}');
+    const role = user.role || localStorage.getItem('role') || 'tenant';
+    const rolePerms = (window.PERMS && window.PERMS[role]) ? window.PERMS[role] : [];
+    return rolePerms.includes(permission);
+  } catch (e) {
+    return false;
+  }
+};
+
 (function () {
   'use strict';
 
