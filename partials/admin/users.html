@@ -1,0 +1,131 @@
+<div class="container-xxl flex-grow-1 container-p-y">
+  <div class="d-flex align-items-center justify-content-between mb-3">
+    <div>
+      <h4 class="mb-1">Kullanıcılar</h4>
+      <small class="text-muted">Kullanıcı ekle / düzenle / pasife al (dummy)</small>
+    </div>
+    <button class="btn btn-primary" id="btnNewUser">
+      <i class="bx bx-plus me-1"></i> Yeni Kullanıcı
+    </button>
+  </div>
+
+  <div class="card">
+    <div class="card-body">
+      <div class="row g-2 align-items-center">
+        <div class="col-12 col-lg-4">
+          <div class="input-group">
+            <span class="input-group-text"><i class="bx bx-search"></i></span>
+            <input id="userSearch" class="form-control" placeholder="Ara: ad, email, rol" />
+          </div>
+        </div>
+        <div class="col-12 col-lg-3">
+          <select id="roleFilter" class="form-select">
+            <option value="">Tüm Roller</option>
+            <option value="tenant">Kiracı</option>
+            <option value="owner">Daire Sahibi</option>
+            <option value="accountant">Muhasebe</option>
+            <option value="security">Güvenlik</option>
+            <option value="facility_manager">Operasyon</option>
+            <option value="admin">Admin</option>
+            <option value="staff_cleaning">Temizlik</option>
+            <option value="staff_tech">Teknik</option>
+          </select>
+        </div>
+        <div class="col-12 col-lg-2 ms-lg-auto text-lg-end">
+          <span class="badge bg-label-secondary" id="userCount">0 kayıt</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="table-responsive">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Ad</th>
+            <th>Email</th>
+            <th>Rol</th>
+            <th>Plan</th>
+            <th>Durum</th>
+            <th class="text-end">İşlem</th>
+          </tr>
+        </thead>
+        <tbody id="usersTbody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal fade" id="userModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <form class="modal-content" id="userForm">
+        <div class="modal-header">
+          <h5 class="modal-title">Kullanıcı</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+
+        <div class="modal-body">
+          <input type="hidden" id="userId" />
+
+          <div class="row g-3">
+            <div class="col-12 col-md-6">
+              <label class="form-label">Ad Soyad</label>
+              <input class="form-control" id="userName" required />
+            </div>
+            <div class="col-12 col-md-6">
+              <label class="form-label">Email</label>
+              <input class="form-control" id="userEmail" type="email" required />
+            </div>
+
+            <div class="col-12 col-md-4">
+              <label class="form-label">Rol</label>
+              <select class="form-select" id="userRole" required>
+                <option value="tenant">Kiracı</option>
+                <option value="owner">Daire Sahibi</option>
+                <option value="accountant">Muhasebe</option>
+                <option value="security">Güvenlik</option>
+                <option value="facility_manager">Operasyon</option>
+                <option value="staff_cleaning">Temizlik</option>
+                <option value="staff_tech">Teknik</option>
+                <option value="admin">Admin</option>
+              </select>
+            </div>
+
+            <div class="col-12 col-md-4">
+              <label class="form-label">Plan</label>
+              <select class="form-select" id="userPlan" required>
+                <option value="standard">Standard</option>
+                <option value="pro">Pro</option>
+              </select>
+            </div>
+
+            <div class="col-12 col-md-4">
+              <label class="form-label">Durum</label>
+              <select class="form-select" id="userStatus" required>
+                <option value="active">Aktif</option>
+                <option value="passive">Pasif</option>
+              </select>
+            </div>
+
+            <div class="col-12">
+              <label class="form-label">Permission’lar</label>
+              <div class="alert alert-secondary mb-2 py-2">
+                <small class="text-muted">
+                  Şimdilik dummy. Backend gelince role-perm matrisi API’den gelecek.
+                </small>
+              </div>
+              <textarea class="form-control" id="userPerms" rows="4" placeholder="Örn: DUES_SELF_VIEW, LEDGER_SELF_VIEW ..."></textarea>
+              <small class="text-muted">Virgül ile ayır.</small>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button class="btn btn-outline-secondary" type="button" data-bs-dismiss="modal">İptal</button>
+          <button class="btn btn-primary" type="submit">
+            <i class="bx bx-save me-1"></i> Kaydet
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

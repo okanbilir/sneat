@@ -1,0 +1,101 @@
+<div class="container-xxl flex-grow-1 container-p-y">
+  <div class="d-flex align-items-center justify-content-between mb-3">
+    <div>
+      <h4 class="mb-1">İş Emri Yönetimi</h4>
+      <small class="text-muted">Atama / durum güncelleme (dummy)</small>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-body">
+      <div class="row g-2">
+        <div class="col-12 col-lg-3">
+          <select id="mStatus" class="form-select">
+            <option value="">Tüm Durumlar</option>
+            <option value="open">Açık</option>
+            <option value="in_progress">İşlemde</option>
+            <option value="done">Tamamlandı</option>
+          </select>
+        </div>
+        <div class="col-12 col-lg-4">
+          <input id="mSearch" class="form-control" placeholder="Ara: başlık/birim" />
+        </div>
+        <div class="col-12 col-lg-3">
+          <select id="mAssignee" class="form-select">
+            <option value="">Tüm Atamalar</option>
+            <option value="tech">Teknik</option>
+            <option value="cleaning">Temizlik</option>
+            <option value="facility">Operasyon</option>
+          </select>
+        </div>
+        <div class="col-12 col-lg-2 ms-lg-auto text-lg-end">
+          <span class="badge bg-label-secondary" id="mCount">0</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="table-responsive">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Talep</th>
+            <th>Birim</th>
+            <th>Atama</th>
+            <th>Durum</th>
+            <th class="text-end">İşlem</th>
+          </tr>
+        </thead>
+        <tbody id="mTbody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Modal: Yönet -->
+  <div class="modal fade" id="mModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+      <form class="modal-content" id="mForm">
+        <div class="modal-header">
+          <h5 class="modal-title">İş Emri</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <input type="hidden" id="mId" />
+          <div class="mb-2">
+            <div class="fw-semibold" id="mTitle">-</div>
+            <small class="text-muted" id="mUnit">-</small>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Atama</label>
+            <select id="mAssignSel" class="form-select">
+              <option value="">Atanmadı</option>
+              <option value="tech">Teknik</option>
+              <option value="cleaning">Temizlik</option>
+              <option value="facility">Operasyon</option>
+            </select>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Durum</label>
+            <select id="mStatusSel" class="form-select">
+              <option value="open">Açık</option>
+              <option value="in_progress">İşlemde</option>
+              <option value="done">Tamamlandı</option>
+            </select>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Not</label>
+            <textarea id="mNote" class="form-control" rows="3" placeholder="İç not (dummy)"></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-outline-secondary" type="button" data-bs-dismiss="modal">İptal</button>
+          <button class="btn btn-primary" type="submit">
+            <i class="bx bx-save me-1"></i> Kaydet
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

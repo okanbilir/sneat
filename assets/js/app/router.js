@@ -162,6 +162,46 @@
       permissions: ['FACILITY_CHECKIN'],
       onLoad: () => window.initFacilityCheckin?.()
     },
+    // --- Duyurular ---
+    announcements: {
+      title: 'Duyurular',
+      partial: 'announcements/index',
+      roles: ['tenant','owner','admin','accountant','security','facility_manager','trainer','staff_cleaning','staff_tech'],
+      permissions: ['ANNOUNCEMENT_VIEW|ANNOUNCEMENT_MANAGE'],
+      onLoad: () => window.initAnnouncements?.()
+    },
+    announcementsManage: {
+      title: 'Duyuru Yönetimi',
+      partial: 'announcements/manage',
+      roles: ['admin','facility_manager','accountant'],
+      permissions: ['ANNOUNCEMENT_MANAGE'],
+      onLoad: () => window.initAnnouncementsManage?.()
+    },
+
+    // --- Kullanıcı Yönetimi (Admin/Muhasebe) ---
+    users: {
+      title: 'Kullanıcılar',
+      partial: 'admin/users',
+      roles: ['admin','accountant'],
+      permissions: ['USER_VIEW'],
+      onLoad: () => window.initUsers?.()
+    },
+
+    // --- Bakım / İş Emri ---
+    maintenance: {
+      title: 'Bakım / İş Emirleri',
+      partial: 'maintenance/index',
+      roles: ['tenant','owner','admin','staff_cleaning','staff_tech'],
+      permissions: ['MAINTENANCE_VIEW|MAINTENANCE_MANAGE'],
+      onLoad: () => window.initMaintenance?.()
+    },
+    maintenanceManage: {
+      title: 'İş Emri Yönetimi',
+      partial: 'maintenance/manage',
+      roles: ['admin','staff_cleaning','staff_tech'],
+      permissions: ['MAINTENANCE_MANAGE'],
+      onLoad: () => window.initMaintenanceManage?.()
+    },
 
     forbidden: {
       title: 'Erişim Yok',

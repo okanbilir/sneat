@@ -1,0 +1,96 @@
+<div class="container-xxl flex-grow-1 container-p-y">
+  <div class="d-flex align-items-center justify-content-between mb-3">
+    <div>
+      <h4 class="mb-1">Bakım / Talepler</h4>
+      <small class="text-muted">Arıza bildir, takip et (dummy)</small>
+    </div>
+
+    <button class="btn btn-primary" id="btnNewTicket">
+      <i class="bx bx-plus me-1"></i> Yeni Talep
+    </button>
+  </div>
+
+  <div class="row g-3">
+    <div class="col-12 col-xl-4">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="mb-2">Hızlı Filtre</h5>
+          <div class="mb-2">
+            <label class="form-label">Durum</label>
+            <select id="ticketStatusFilter" class="form-select">
+              <option value="">Tümü</option>
+              <option value="open">Açık</option>
+              <option value="in_progress">İşlemde</option>
+              <option value="done">Tamamlandı</option>
+            </select>
+          </div>
+          <div>
+            <label class="form-label">Ara</label>
+            <input id="ticketSearch" class="form-control" placeholder="Başlık / birim / etiket" />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12 col-xl-8">
+      <div class="card">
+        <div class="table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Talep</th>
+                <th>Birim</th>
+                <th>Durum</th>
+                <th>Tarih</th>
+                <th class="text-end">İşlem</th>
+              </tr>
+            </thead>
+            <tbody id="ticketsTbody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Yeni Talep -->
+  <div class="modal fade" id="ticketModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+      <form class="modal-content" id="ticketForm">
+        <div class="modal-header">
+          <h5 class="modal-title">Yeni Bakım Talebi</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <input type="hidden" id="ticketId" />
+          <div class="mb-3">
+            <label class="form-label">Başlık</label>
+            <input class="form-control" id="ticketTitle" required placeholder="Örn: Musluk arızası" />
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Birim</label>
+            <input class="form-control" id="ticketUnit" required placeholder="Örn: B-12" />
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Detay</label>
+            <textarea class="form-control" id="ticketBody" rows="4" required placeholder="Sorunu kısaca anlat..."></textarea>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Etiket</label>
+            <select id="ticketTag" class="form-select">
+              <option value="plumbing">Tesisat</option>
+              <option value="electric">Elektrik</option>
+              <option value="cleaning">Temizlik</option>
+              <option value="other">Diğer</option>
+            </select>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-outline-secondary" type="button" data-bs-dismiss="modal">İptal</button>
+          <button class="btn btn-primary" type="submit">
+            <i class="bx bx-send me-1"></i> Gönder
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

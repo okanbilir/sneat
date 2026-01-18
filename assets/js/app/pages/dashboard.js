@@ -2,6 +2,7 @@
 (function () {
   'use strict';
 
+  // ---------- Helpers ----------
   function normalizeRole(role) {
     if (!role) return role;
     if (role === 'resident') return 'tenant';
@@ -9,73 +10,24 @@
     return role;
   }
 
-  // Chart instance'ları biriktirmemek için
+  // ApexCharts instance birikmesini engelle
   window.__charts = window.__charts || {};
-
   function destroyChart(key) {
     try {
-      if (window.__charts[key]) {
-        window.__charts[key].destroy();
-        window.__charts[key] = null;
-      }
+      const inst = window.__charts[key];
+      if (inst && typeof inst.destroy === 'function') inst.destroy();
     } catch (_) {}
+    window.__charts[key] = null;
   }
 
-  function setTextIfExists(id, value) {
-    const el = document.getElementById(id);
-    if (el) el.innerText = value;
-  }
-  // --- Admin dashboard grafik/stat ---
-  function initAdminDashboard() {
-    // Statik (Dummy) Veriler
-    const stats = {
-      apartments: 128,
-      residents: 312,
-      facilities: 6,
-      requests: 9
-    };
-
-    setTextIfExists('stat-apartments', stats.apartments);
-    setTextIfExists('stat-residents', stats.residents);
-    setTextIfExists('stat-facilities', stats.facilities);
-    setTextIfExists('stat-requests', stats.requests);
-
-    // Aylık Aktivite Grafiği
-    const activityEl = document.querySelector('#dashboardActivityChart');
-    if (activityEl && window.ApexCharts) {
-      destroyChart('dashboardActivityChart');
-      activityEl.innerHTML = '';
-
-      window.__charts.dashboardActivityChart = new ApexCharts(activityEl, {
-        chart: { type: 'bar', height: 300, toolbar: { show: false } },
-        series: [{ name: 'İşlem', data: [30, 40, 35, 50, 49, 60, 70, 91, 80, 60, 55, 45] }],
-        xaxis: { categories: ['Oca','Şub','Mar','Nis','May','Haz','Tem','Ağu','Eyl','Eki','Kas','Ara'] }
-      });
-      window.__charts.dashboardActivityChart.render();
-    }
-
-    // Pie Chart
-    const pieEl = document.querySelector('#dashboardPieChart');
-    if (pieEl && window.ApexCharts) {
-      destroyChart('dashboardPieChart');
-      pieEl.innerHTML = '';
-
-      window.__charts.dashboardPieChart = new ApexCharts(pieEl, {
-        chart: { type: 'donut', height: 300 },
-        labels: ['Kiracı', 'Daire Sahibi', 'Personel'],
-        series: [200, 80, 32]
-      });
-      window.__charts.dashboardPieChart.render();
-    }
-  }
-  // --- Accountant dashboard grafik ---
-  function initAccountantDashboard() {
-    // Tahsilat Trend (Line)
+  // ---------- Accountant Charts (Finance dashboard widgets) ----------
+  function initAccountantCharts() {
+    // 1) Tahsilat Trend (Line)
     const trendEl = document.querySelector('#acctCollectionChart');
     if (trendEl && window.ApexCharts) {
       destroyChart('acctCollectionChart');
 
-      window.__charts.acctCollectionChart = new ApexCharts(trendEl, {
+      const options = {
         chart: { type: 'line', height: 320, toolbar: { show: false } },
         stroke: { width: 3, curve: 'smooth' },
         dataLabels: { enabled: false },
@@ -84,63 +36,76 @@
         xaxis: { categories: ['Oca','Şub','Mar','Nis','May','Haz','Tem','Ağu','Eyl','Eki','Kas','Ara'] },
         yaxis: { labels: { formatter: (v) => '₺ ' + Math.round(v) + 'K' } },
         tooltip: { y: { formatter: (v) => '₺ ' + v + 'K' } }
-      });
+      };
+
+      window.__charts.acctCollectionChart = new ApexCharts(trendEl, options);
       window.__charts.acctCollectionChart.render();
     }
 
-    // Mini Sparkline (Area)
-    const sparkEl = document.querySelector('#acctMiniSpark');
+    // 2) Mini Sparkline (Area) -> özel bir div id önerilir.
+    // Eğer sen "#acctMiniSpark" kartının içine chart basacaksan içeride bir div kullan:
+    // <div id="acctMiniSparkChart"></div>
+    const sparkEl = document.querySelector('#acctMiniSparkChart');
     if (sparkEl && window.ApexCharts) {
-      destroyChart('acctMiniSpark');
+      destroyChart('acctMiniSparkChart');
 
-      window.__charts.acctMiniSpark = new ApexCharts(sparkEl, {
+      const sparkOptions = {
         chart: { type: 'area', height: 90, sparkline: { enabled: true } },
         stroke: { width: 2, curve: 'smooth' },
         dataLabels: { enabled: false },
         series: [{ name: 'Günlük', data: [5, 12, 9, 18, 14, 22, 19, 27, 23, 30] }],
         tooltip: { enabled: true }
-      });
-      window.__charts.acctMiniSpark.render();
-    }
-  }
-  // --- Security dashboard grafik/stat ---
-  function initSecurityDashboard() {
-    // Saatlik yoğunluk (bar)
-    const hourlyEl = document.querySelector('#secHourlyChart');
-    if (hourlyEl && window.ApexCharts) {
-      destroyChart('secHourlyChart');
-      window.__charts.secHourlyChart = new ApexCharts(hourlyEl, {
-        chart: { type: 'bar', height: 320, toolbar: { show: false } },
-        series: [{ name: 'Kayıt', data: [4, 6, 3, 8, 10, 14, 12, 18, 16, 11, 9, 7] }],
-        xaxis: { categories: ['08','09','10','11','12','13','14','15','16','17','18','19'] },
-        grid: { strokeDashArray: 4 }
-      });
-      window.__charts.secHourlyChart.render();
-    }
+      };
 
-    // Mini sparkline (area)
-    const sparkEl = document.querySelector('#secMiniSpark');
-    if (sparkEl && window.ApexCharts) {
-      destroyChart('secMiniSpark');
-      window.__charts.secMiniSpark = new ApexCharts(sparkEl, {
-        chart: { type: 'area', height: 90, sparkline: { enabled: true } },
-        stroke: { width: 2, curve: 'smooth' },
-        dataLabels: { enabled: false },
-        series: [{ name: 'Yoğunluk', data: [3, 7, 5, 9, 8, 12, 10, 15, 11, 14] }],
-        tooltip: { enabled: true }
-      });
-      window.__charts.secMiniSpark.render();
+      window.__charts.acctMiniSparkChart = new ApexCharts(sparkEl, sparkOptions);
+      window.__charts.acctMiniSparkChart.render();
     }
   }
-  // --- Tek giriş noktası ---
+
+  // ---------- Main initDashboard ----------
+  // Router -> dashboard route onLoad burayı çağırıyor.
   window.initDashboard = function () {
     const user = window.Auth?.getUser?.();
     const role = normalizeRole(user?.role);
 
-    // Hangi dashboard açık ise, sadece onu init et
-    if (role === 'admin') initAdminDashboard();
-    if (role === 'accountant') initAccountantDashboard();
-    if (role === 'security') initSecurityDashboard();
+    // Role'e göre dashboard init fonksiyonları (partials içinde varsa)
+    try {
+      if (role === 'admin') {
+        window.initAdminDashboard?.();
+        return;
+      }
 
+      if (role === 'accountant') {
+        // Muhasebe dashboard partial'ı açıkken chartlar
+        initAccountantCharts();
+        window.initAccountantDashboard?.();
+        return;
+      }
+
+      if (role === 'security') {
+        window.initSecurityDashboard?.();
+        return;
+      }
+
+      if (role === 'staff_tech') {
+        window.initStaffTechDashboard?.();
+        return;
+      }
+
+      if (role === 'staff_cleaning') {
+        window.initStaffCleaningDashboard?.();
+        return;
+      }
+
+      if (role === 'owner') {
+        window.initOwnerDashboard?.();
+        return;
+      }
+
+      // default tenant
+      window.initTenantDashboard?.();
+    } catch (err) {
+      console.warn('Dashboard init hata:', err);
+    }
   };
 })();
