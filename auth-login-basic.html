@@ -207,61 +207,61 @@
         try {
           // BACKEND HAZIR DEGIL -> MOCK (demo hesaplar)
           const DEMO = {
-            'admin': {
-              name: 'Admin',
-              role: 'admin',
-              plan: 'pro',
-              tenant_id: 1001,
-              permissions: [
-                'FACILITY_VIEW',
-                'FACILITY_BOOK',
-                'FACILITY_MANAGE',
-                'FACILITY_CHECKIN'
-              ]
-            },
-            'tenant': {
-              name: 'Kiraci',
-              role: 'tenant',
-              plan: 'standard',
-              tenant_id: 1001,
-              permissions: ['FACILITY_VIEW', 'FACILITY_BOOK']
-            },
-            'owner': {
-              name: 'Daire Sahibi',
-              role: 'owner',
-              plan: 'standard',
-              tenant_id: 1001,
-              permissions: ['FACILITY_VIEW']
-            },
-            'accountant': {
-              name: 'Muhasebe',
-              role: 'accountant',
-              plan: 'pro',
-              tenant_id: 1001,
-              permissions: []
-            },
-            'security': {
-              name: 'Guvenlik',
-              role: 'security',
-              plan: 'standard',
-              tenant_id: 1001,
-              permissions: ['FACILITY_CHECKIN']
-            },
-            'facility': {
-              name: 'Tesis Yoneticisi',
-              role: 'facility_manager',
-              plan: 'pro',
-              tenant_id: 1001,
-              permissions: ['FACILITY_VIEW', 'FACILITY_MANAGE']
-            },
-            'trainer': {
-              name: 'Egitmen',
-              role: 'trainer',
-              plan: 'standard',
-              tenant_id: 1001,
-              permissions: ['FACILITY_VIEW']
-            }
-          };
+          'admin@': {
+            name: 'Admin',
+            role: 'admin',
+            plan: 'pro',
+            permissions: ['*']
+          },
+          'resident@': {
+            name: 'Kiracı',
+            role: 'resident',
+            plan: 'standard',
+            permissions: ['FACILITY_VIEW', 'FACILITY_BOOK', 'MESSAGE_VIEW', 'ANNOUNCEMENT_VIEW', 'TICKET_CREATE', 'VISITOR_CREATE']
+          },
+          'owner@': {
+            name: 'Daire Sahibi',
+            role: 'owner',
+            plan: 'standard',
+            permissions: ['ANNOUNCEMENT_VIEW', 'MESSAGE_VIEW', 'REPORT_VIEW']
+          },
+          'accountant@': {
+            name: 'Muhasebe',
+            role: 'accountant',
+            plan: 'pro',
+            permissions: ['ACCOUNTING_VIEW', 'ACCOUNTING_MANAGE', 'ANNOUNCEMENT_VIEW', 'MESSAGE_VIEW']
+          },
+          'security@': {
+            name: 'Güvenlik',
+            role: 'security',
+            plan: 'standard',
+            permissions: ['VISITOR_CHECKIN', 'VEHICLE_CHECKIN', 'FACILITY_CHECKIN', 'ANNOUNCEMENT_VIEW']
+          },
+          'facility@': {
+            name: 'Sosyal Alan Yöneticisi',
+            role: 'facility_manager',
+            plan: 'pro',
+            permissions: ['FACILITY_VIEW', 'FACILITY_MANAGE', 'ANNOUNCEMENT_CREATE', 'MESSAGE_VIEW']
+          },
+          'trainer@': {
+            name: 'Eğitmen',
+            role: 'trainer',
+            plan: 'standard',
+            permissions: ['FACILITY_VIEW', 'CLASS_MANAGE', 'MESSAGE_VIEW']
+          },
+          'cleaning@': {
+            name: 'Temizlik',
+            role: 'staff_cleaning',
+            plan: 'standard',
+            permissions: ['WORKORDER_VIEW', 'MESSAGE_VIEW']
+          },
+          'technical@': {
+            name: 'Teknik',
+            role: 'staff_technical',
+            plan: 'standard',
+            permissions: ['WORKORDER_VIEW', 'WORKORDER_UPDATE', 'MESSAGE_VIEW']
+          }
+        };
 
           if (password !== '123456') {
             throw new Error('Hatalı bilgiler');
