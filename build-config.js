@@ -17,7 +17,7 @@ module.exports = {
 
     // Base Path to Serve from using Browser Sync, Currently set to root of the project
     // You can also point to specific folder like 'build/'
-    serverPath: './html/',
+    serverPath: './',
 
     // Template/Folder to build for production
     buildTemplatePath: 'html',
